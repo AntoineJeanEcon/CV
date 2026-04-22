@@ -1,0 +1,1103 @@
+/************************************************************
+ * THEME GLOBAL SHINY - style_shiny.css
+ * JEAN Antoine - version 1
+ ************************************************************/
+
+/* ------------------ 0. Variables de thème ------------------ */
+
+:root {
+  --bg-body: #0b1020;          /* fond général */
+  --bg-card: #111827;          /* cartes / boîtes */
+  --bg-card-alt: #020617;      /* variante plus sombre */
+  --bg-sidebar: #020617;
+
+  --accent: #38bdf8;           /* bleu principal */
+  --accent-soft: rgba(56,189,248,0.12);
+  --accent-strong: #0ea5e9;
+  --accent-2: #22c55e;         /* vert secondaire */
+
+  --text-main: #e5e7eb;
+  --text-soft: #9ca3af;
+  --text-muted: #6b7280;
+
+  --border-soft: #1f2937;
+  --shadow-soft: 0 18px 45px rgba(15,23,42,0.85);
+
+  --radius-lg: 18px;
+  --radius-md: 12px;
+  --radius-sm: 8px;
+
+  --transition-fast: all 0.18s ease-out;
+  --transition-med: all 0.28s ease;
+}
+
+/* ------------------ 1. Fond général & typo ------------------ */
+
+/* Styles généraux du corps de page : fond en dégradé, police, couleurs globales */
+html, body {
+  background: radial-gradient(circle at top, #1f2937 0, #020617 45%, #020617 100%);
+  color: var(--text-main);
+  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI",
+               Roboto, "Helvetica Neue", Arial, sans-serif;
+  font-size: 15px;
+}
+
+/* Fond global : texture légère + effet "lumière" très discret */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  /* superposition de plusieurs couches très discrètes */
+  background:
+    radial-gradient(circle at 0% 0%, rgba(56,189,248,0.12), transparent 55%),
+    radial-gradient(circle at 100% 0%, rgba(34,197,94,0.10), transparent 55%),
+    linear-gradient(135deg, rgba(148,163,184,0.08) 0, transparent 40%, transparent 60%, rgba(15,23,42,0.6) 100%),
+    repeating-linear-gradient(120deg, rgba(15,23,42,0.5) 0, rgba(15,23,42,0.5) 1px, transparent 1px, transparent 3px);
+  opacity: 0.9;
+}
+
+body {
+  padding-top: 15px;
+  position: relative;           /* nécessaire pour le pseudo-élément de fond */
+  overflow-x: hidden;           /* évite les scrollbars horizontales à cause des effets */
+}
+
+/* titre principal Shiny */
+h1, h2, h3, h4, h5, h6 {
+  color: var(--text-main);
+  font-weight: 600;
+  letter-spacing: 0.03em;
+}
+
+/* Style du titre principal : taille, majuscules, barre décorative */
+h1 {
+  font-size: 2.2rem;
+  text-transform: uppercase;
+  margin-bottom: 12px;
+  position: relative;
+}
+
+h1::after {
+  content: "";
+  display: block;
+  width: 80px;
+  height: 3px;
+  margin-top: 8px;
+  border-radius: 999px;
+  background: linear-gradient(90deg, var(--accent), var(--accent-2));
+}
+
+h2 {
+  font-size: 1.6rem;
+  margin-top: 18px;
+  margin-bottom: 8px;
+}
+
+p {
+  color: var(--text-soft);
+  line-height: 1.6;
+}
+
+/* liens */
+/* Style des liens : couleur, hover, transition */
+a,
+a:visited {
+  color: var(--accent);
+  text-decoration: none;
+  transition: var(--transition-fast);
+}
+
+a:hover,
+a:focus {
+  color: var(--accent-strong);
+  text-shadow: 0 0 8px rgba(56,189,248,0.65);
+}
+
+/* ------------------ 2. Layout de base Shiny ------------------ */
+
+/* Conteneur principal */
+/* === Conteneur principal ===
+   - structure la page
+   - ajoute des marges internes pour respirer
+   - base du layout général */
+/* Conteneur principal Shiny : marges internes */
+/* === Classe .container-fluid ===
+   - Description : style appliqué via .container-fluid
+   - À personnaliser selon l'esthétique souhaitée
+*/
+.container-fluid {
+  padding: 18px 26px 32px 26px;
+}
+
+/* sidebarLayout() */
+/* === Sidebar (colonne gauche) ===
+   - zone des inputs
+   - fond sombre + ombre
+   - arrondis modernes */
+.col-sm-4 .well {
+  background: var(--bg-sidebar);
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--border-soft);
+  box-shadow: var(--shadow-soft);
+  padding: 18px 18px 20px 18px;
+  margin-top: 10px;
+}
+
+/* === Cartes / panneaux standard (.well hors sidebar) ===
+   - utilisé par wellPanel() dans le mainPanel
+   - fond sombre cohérent avec le thème
+   - arrondis identiques aux autres cartes */
+.well {
+  background: var(--bg-card);
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--border-soft);
+  box-shadow: var(--shadow-soft);
+  padding: 18px 20px 20px 20px;
+}
+
+
+/* mainPanel() */
+/* Zone principale (mainPanel) : légère marge à gauche pour aérer la mise en page */
+/* === Classe .col-sm-8 ===
+   - Description : style appliqué via .col-sm-8
+   - À personnaliser selon l'esthétique souhaitée
+*/
+.col-sm-8 {
+  padding-left: 26px;
+}
+
+
+
+/* titres dans la sidebar */
+.col-sm-4 .well h3,
+.col-sm-4 .well h4 {
+  font-size: 1.05rem;
+  text-transform: uppercase;
+  color: var(--text-main);
+  margin-bottom: 14px;
+  letter-spacing: 0.08em;
+}
+
+/* ------------------ 3. Boîtes de texte et graphiques ------------------ */
+
+/* Animation d'apparition douce pour les cartes (fade + léger déplacement) */
+@keyframes fadeUpSoft {
+  0% {
+    opacity: 0;
+    transform: translateY(12px) scale(0.98);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* On applique l'animation à toutes les grandes cartes / boîtes */
+.boite-texte,
+.boite-graph,
+.kpi-card,
+.well,
+.tab-content {
+  animation: fadeUpSoft 0.45s ease-out;
+}
+
+/* Boîte de texte explicative */
+/* === Boîte de texte (boite-texte) ===
+   - utilisée pour explications, descriptions
+   - dégradé lumineux
+   - halo graphique décoratif */
+/* Boîte de texte personnalisée : fond dégradé, bordure bleutée, effet lumineux */
+/* === Classe .boite-texte ===
+   - Description : style appliqué via .boite-texte
+   - À personnaliser selon l'esthétique souhaitée
+*/
+.boite-texte {
+  background: radial-gradient(circle at top left,
+                              rgba(56,189,248,0.15),
+                              rgba(15,23,42,0.98));
+  border-radius: var(--radius-lg);
+  border: 1px solid rgba(56,189,248,0.35);
+  padding: 18px 20px;
+  margin-top: 16px;
+  margin-bottom: 18px;
+  box-shadow: var(--shadow-soft);
+  position: relative;
+  overflow: hidden;
+}
+
+/* Effet lumineux décoratif en arrière-plan : deux halos colorés très diffus */
+.boite-texte::before {
+  /* halo coloré de base : bleu + vert très diffus */
+  content: "";
+  position: absolute;
+  inset: -40%;
+  background:
+    radial-gradient(circle at 0 0, rgba(56,189,248,0.24), transparent 60%),
+    radial-gradient(circle at 100% 0, rgba(34,197,94,0.20), transparent 58%);
+  opacity: 0.35;
+  pointer-events: none;
+  transition: var(--transition-med);
+}
+
+/* survol d'une boîte de texte : halo plus présent et légèrement déplacé */
+.boite-texte:hover::before {
+  background:
+    radial-gradient(circle at 10% -10%, rgba(56,189,248,0.38), transparent 62%),
+    radial-gradient(circle at 90% 0, rgba(34,197,94,0.32), transparent 60%);
+  opacity: 0.55;
+}
+
+/* superposition pour le contenu */
+.boite-texte > * {
+  position: relative;
+  z-index: 1;
+}
+
+.boite-texte h4 {
+  color: #e0f2fe;
+  font-weight: 600;
+  margin-top: 0;
+  margin-bottom: 6px;
+}
+
+.boite-texte p {
+  color: #e5e7eb;
+}
+
+/* petite étiquette en haut à gauche (optionnelle) */
+.boite-texte /* === Classe .badge ===
+   - Description : style appliqué via .badge
+   - À personnaliser selon l'esthétique souhaitée
+*/
+.badge {
+  display: inline-block;
+  padding: 4px 10px;
+  border-radius: 999px;
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  background: rgba(15,23,42,0.88);
+  color: var(--accent-soft);
+  border: 1px solid rgba(148,163,184,0.5);
+}
+
+/* Boîte pour les graphiques */
+/* === Conteneur des graphiques (boite-graph) ===
+   - fond sombre
+   - ombre profonde
+   - animation au survol (hover) */
+/* Conteneur graphique : fond sombre, hover dynamique, ombre forte */
+/* === Classe .boite-graph ===
+   - Description : style appliqué via .boite-graph
+   - À personnaliser selon l'esthétique souhaitée
+*/
+
+/* Balayage lumineux automatique très subtil sur les boîtes de graphiques */
+@keyframes lightSweep {
+  0%, 60% {
+    opacity: 0;
+    transform: translateX(-120%);
+  }
+  70% {
+    opacity: 0.9;
+    transform: translateX(0%);
+  }
+  80% {
+    opacity: 0;
+    transform: translateX(120%);
+  }
+  100% {
+    opacity: 0;
+    transform: translateX(120%);
+  }
+}
+
+.boite-graph {
+  /* effet glassmorphism : fond légèrement transparent + blur */
+  background: linear-gradient(145deg, rgba(15,23,42,0.92), rgba(15,23,42,0.78));
+  border-radius: var(--radius-lg);
+  border: 1px solid rgba(148,163,184,0.35);
+  padding: 14px 16px 18px 16px;
+  margin-top: 18px;
+  box-shadow: 0 26px 60px rgba(15,23,42,0.95);
+  transition: var(--transition-med);
+  position: relative;
+  backdrop-filter: blur(10px);           /* flou de fond (supporté par Chrome, Edge, Safari récents) */
+  -webkit-backdrop-filter: blur(10px);
+  transform-origin: center center;       /* nécessaire pour l'effet pseudo-3D */
+}
+
+/* contenu interne : transition séparée pour effet parallax léger */
+.boite-graph > * {
+  position: relative;
+  z-index: 1;
+  transition: var(--transition-med);
+}
+
+.boite-graph::before {
+  /* halo interne + lumière directionnelle pour effet "spot" */
+  content: "";
+  position: absolute;
+  inset: 1px;
+  border-radius: inherit;
+  border: 1px solid rgba(148,163,184,0.18);
+  pointer-events: none;
+  background: radial-gradient(circle at 20% 0%, rgba(56,189,248,0.18), transparent 55%);
+  opacity: 0.9;
+  transition: var(--transition-med);
+}
+
+/* effet de lumière qui se déplace vers la droite au survol */
+.boite-graph:hover::before {
+  background: radial-gradient(circle at 80% 0%, rgba(56,189,248,0.32), transparent 60%);
+  border-color: rgba(56,189,248,0.55);
+}
+
+/* balayage lumineux automatique (effet "sweep" très discret) */
+/* balayage lumineux global désactivé sur la boîte entière
+   (on le déplace sur les éléments internes : plots, tables) */
+.boite-graph::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: none;
+  opacity: 0;
+  pointer-events: none;
+  animation: none;
+}
+
+
+.boite-graph:hover {
+  transform: translateY(-6px) scale(1.01);   /* légère élévation + zoom très réduit */
+  box-shadow: 0 32px 70px rgba(15,23,42,0.98);
+  border-color: rgba(56,189,248,0.45);
+}
+
+/* effet parallax : le contenu se déplace différemment du conteneur */
+.boite-graph:hover > * {
+  transform: translateY(-2px);
+}
+
+
+/* Titre interne du graphique : style minimaliste, typé dashboard */
+/* === Classe .boite-graph-title ===
+   - Description : style appliqué via .boite-graph-title
+   - À personnaliser selon l'esthétique souhaitée
+*/
+.boite-graph-title {
+  font-size: 0.95rem;
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+  color: var(--text-muted);
+  margin-bottom: 6px;
+}
+
+/* PlotOutput à l'intérieur */
+/* PlotOutput à l'intérieur */
+.boite-graph .shiny-plot-output {
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  position: relative;   /* nécessaire pour le balayage interne */
+}
+
+/* balayage lumineux uniquement sur la zone du plot */
+.boite-graph .shiny-plot-output::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: linear-gradient(120deg,
+                              transparent 0%,
+                              rgba(248,250,252,0.22) 45%,
+                              transparent 90%);
+  mix-blend-mode: screen;
+  opacity: 0;
+  pointer-events: none;
+  animation: lightSweep 8s linear infinite;
+}
+
+
+/* ------------------ 4. Onglets (tabsetPanel) ------------------ */
+
+/* Animation de glow pour l'onglet actif (ligne lumineuse sous le texte) */
+@keyframes tabGlow {
+  0% {
+    box-shadow: 0 0 8px rgba(56,189,248,0.4);
+    opacity: 0.7;
+  }
+  50% {
+    box-shadow: 0 0 16px rgba(56,189,248,0.95);
+    opacity: 1;
+  }
+  100% {
+    box-shadow: 0 0 8px rgba(56,189,248,0.4);
+    opacity: 0.7;
+  }
+}
+
+/* ------------------ 4. Onglets (tabsetPanel) ------------------ */
+
+/* === Système d'onglets (tabsetPanel) ===
+   - navigation horizontale
+   - onglets arrondis
+   - effet lumineux sur l'actif */
+/* Style général des onglets : ligne de séparation */
+/* === Classe .nav-tabs ===
+   - Description : style appliqué via .nav-tabs
+   - À personnaliser selon l'esthétique souhaitée
+*/
+.nav-tabs {
+  border-bottom: 1px solid var(--border-soft);
+  margin-bottom: 12px;
+}
+
+/* onglet inactif */
+/* onglet inactif */
+.nav-tabs > li > a {
+  position: relative;                 /* permet d'ancrer le soulignement animé */
+  color: var(--text-muted);
+  border-radius: 999px 999px 0 0;
+  padding: 8px 18px;
+  margin-right: 6px;
+  border: 1px solid transparent;
+  background: transparent;
+  transition: var(--transition-med);
+  text-transform: uppercase;
+  font-size: 0.78rem;
+  letter-spacing: 0.14em;
+}
+
+/* soulignement animé (ligne lumineuse sous l'onglet) */
+.nav-tabs > li > a::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  bottom: -6px;
+  transform: translateX(-50%) scaleX(0);
+  transform-origin: center;
+  width: 55%;
+  height: 2px;
+  border-radius: 999px;
+  background: linear-gradient(90deg, var(--accent), var(--accent-2));
+  box-shadow: 0 0 12px rgba(56,189,248,0.7);
+  opacity: 0;
+  transition: var(--transition-med);
+}
+
+/* onglet au survol */
+/* onglet au survol */
+.nav-tabs > li > a:hover {
+  color: var(--accent-strong);
+  background: rgba(15,23,42,0.9);
+  border-color: rgba(148,163,184,0.45);
+  transform: translateY(-3px);
+}
+
+.nav-tabs > li > a:hover::after {
+  opacity: 0.9;
+  transform: translateX(-50%) scaleX(1);
+}
+
+/* onglet actif */
+/* onglet actif */
+.nav-tabs > li.active > a,
+.nav-tabs > li.active > a:hover,
+.nav-tabs > li.active > a:focus {
+  color: #f9fafb;
+  background: radial-gradient(circle at top, var(--accent), var(--accent-2));
+  border: 1px solid transparent;
+  border-bottom-color: transparent;
+  box-shadow: 0 14px 30px rgba(15,23,42,0.7);
+}
+
+.nav-tabs > li.active > a::after {
+  opacity: 1;
+  transform: translateX(-50%) scaleX(1);
+  animation: tabGlow 2.8s ease-in-out infinite;
+}
+
+/* contenu des onglets */
+/* Contenu des onglets : fond sombre structuré, boîtes arrondies et ombre profonde */
+/* === Classe .tab-content ===
+   - Description : style appliqué via .tab-content
+   - À personnaliser selon l'esthétique souhaitée
+*/
+.tab-content {
+  background: rgba(15,23,42,0.96);
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--border-soft);
+  padding: 18px 20px 22px 20px;
+  box-shadow: var(--shadow-soft);
+}
+
+/* ------------------ 5. Inputs & boutons ------------------ */
+
+/* labels */
+/* === Labels des inputs ===
+   - lettres espacées
+   - cohérence visuelle du thème
+   - bonne lisibilité */
+/* Label des champs input : typographie fine, lettres espacées pour rendre lisible */
+/* === Classe .control-label ===
+   - Description : style appliqué via .control-label
+   - À personnaliser selon l'esthétique souhaitée
+*/
+.control-label {
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+  color: var(--text-muted);
+}
+
+/* Inputs (text, select, date...) : style sombre, focus bleu, arrondis */
+/* === Inputs texte classiques (.form-control) ===
+   - fond sombre
+   - texte clair
+   - cohérent avec le thème
+*/
+.form-control,
+/* === Classe .selectize-input ===
+   - Description : style appliqué via .selectize-input
+   - À personnaliser selon l'esthétique souhaitée
+*/
+/* === Inputs Selectize (.selectize-input) ===
+   - PROBLÈME ACTUEL : fond trop clair → contraste mauvais
+   - Correction : on applique le même style sombre que .form-control
+*/
+.selectize-input {
+  background-color: #0f172a !important;    /* fond sombre cohérent */
+  border-radius: var(--radius-md);
+  border: 1px solid #1f2937;
+  color: var(--text-main) !important;       /* texte blanc */
+  box-shadow: none !important;
+  padding: 8px 10px;
+  transition: var(--transition-fast);
+}
+
+.form-control:focus,
+.selectize-input/* === Classe .focus ===
+   - Description : style appliqué via .focus
+   - À personnaliser selon l'esthétique souhaitée
+*/
+.focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 1px rgba(56,189,248,0.4);
+  outline: none;
+}
+
+/* boutons principaux */
+/* === Boutons globaux ===
+   - forme pill
+   - transitions rapides
+   - style moderne */
+/* Style par défaut de tous les boutons : arrondis complets (pills), transitions rapides */
+/* === Classe .btn ===
+   - Description : style appliqué via .btn
+   - À personnaliser selon l'esthétique souhaitée
+*/
+/* === Boutons globaux ===
+   - forme pill
+   - transitions rapides
+   - style moderne */
+.btn {
+  border-radius: 999px;
+  border: 1px solid transparent;
+  font-size: 0.88rem;
+  padding: 7px 18px;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  transition: var(--transition-fast);
+  transform: translateY(0);           /* position neutre pour les animations */
+}
+
+/* micro-animation au clic : légère pression visuelle */
+.btn:active {
+  transform: translateY(1px) scale(0.98);
+  box-shadow: none;
+}
+
+
+/* btn-default → neutre sombre */
+/* === Classe .btn-default ===
+   - Description : style appliqué via .btn-default
+   - À personnaliser selon l'esthétique souhaitée
+*/
+.btn-default {
+  background: #111827;
+  border-color: #1f2937;
+  color: var(--text-soft);
+}
+
+.btn-default:hover,
+.btn-default:focus {
+  background: #020617;
+  border-color: rgba(148,163,184,0.6);
+  color: #e5e7eb;
+  box-shadow: 0 16px 40px rgba(15,23,42,0.9);
+  transform: translateY(-2px);
+}
+
+/* btn-primary → bleu gradient */
+
+/* Animation lente de "respiration" pour les boutons principaux */
+@keyframes breatheGlow {
+  0% {
+    box-shadow: 0 12px 26px rgba(56,189,248,0.35);
+    transform: translateY(0);
+  }
+  50% {
+    box-shadow: 0 20px 46px rgba(56,189,248,0.9);
+    transform: translateY(-1px);
+  }
+  100% {
+    box-shadow: 0 12px 26px rgba(56,189,248,0.35);
+    transform: translateY(0);
+  }
+}
+/* Bouton principal : dégradé bleu-vert, ombre, hover lumineux */
+/* === Classe .btn-primary ===
+   - Description : style appliqué via .btn-primary
+   - À personnaliser selon l'esthétique souhaitée
+*/
+.btn-primary {
+  background: linear-gradient(135deg, var(--accent), var(--accent-2));
+  border: none;
+  color: #0b1120;
+  box-shadow: 0 12px 26px rgba(56,189,248,0.55);
+  animation: breatheGlow 3.4s ease-in-out infinite;
+}
+
+.btn-primary:hover,
+.btn-primary:focus {
+  filter: brightness(1.06);
+  box-shadow: 0 18px 40px rgba(56,189,248,0.75);
+  transform: translateY(-1px);
+}
+
+/* downloadButton centré */
+/* === Classe .download-btn-center ===
+   - Description : style appliqué via .download-btn-center
+   - À personnaliser selon l'esthétique souhaitée
+*/
+.download-btn-center {
+  text-align: center;
+  margin-top: 16px;
+}
+
+/* === Sliders (sliderInput / ionRangeSlider) ===
+   - personnalisation complète des barres de sélection
+   - poignée arrondie avec glow
+   - style cohérent avec le thème sombre */
+/* Conteneur principal du slider */
+.irs {
+  font-family: inherit;
+}
+
+/* rail (barre de fond) */
+.irs-line {
+  background: #020617;
+  border-radius: 999px;
+  border: 1px solid #1f2937;
+}
+
+/* partie sélectionnée (entre les deux poignées) */
+.irs-bar {
+  background: linear-gradient(90deg, var(--accent), var(--accent-2));
+  border-radius: 999px;
+  box-shadow: 0 0 12px rgba(56,189,248,0.55);
+}
+
+/* poignée */
+.irs-handle {
+  top: 24px; /* recentrer verticalement si besoin */
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  border: 2px solid #0f172a;
+  background: #e5f9ff;
+  box-shadow: 0 0 0 3px rgba(56,189,248,0.55);
+}
+
+/* survol de la poignée */
+.irs-handle:hover {
+  box-shadow: 0 0 0 4px rgba(56,189,248,0.8);
+}
+
+/* valeurs min / max et labels */
+.irs-min,
+.irs-max,
+.irs-single,
+.irs-from,
+.irs-to {
+  background: transparent;
+  color: var(--text-soft);
+  font-size: 0.75rem;
+}
+
+/* tick marks (petites graduations) */
+.irs-grid-pol {
+  background: rgba(148,163,184,0.6);
+}
+
+.irs-grid-text {
+  color: var(--text-muted);
+  font-size: 0.7rem;
+}
+
+/* ------------------ 6. Tables (DT, gtsummary, gt) ------------------ */
+
+/* DataTables */
+/* === DataTables ===
+   - tableau interactif
+   - adapté au thème sombre
+   - pagination modernisée */
+/* Style des tableaux DataTables : fond transparent, texte clair */
+table.dataTable {
+  background: transparent;
+  color: var(--text-main);
+  border-collapse: separate;
+  border-spacing: 0;
+}
+
+/* lignes du tableau */
+table.dataTable tbody tr {
+  background: transparent;
+  transition: var(--transition-fast);
+}
+
+/* zébrage léger */
+table.dataTable tbody tr:nth-child(odd) {
+  background: rgba(15,23,42,0.6);
+}
+
+table.dataTable tbody tr:nth-child(even) {
+  background: rgba(15,23,42,0.85);
+}
+
+/* hover sur les lignes */
+table.dataTable tbody tr:hover {
+  background: rgba(37,99,235,0.25);
+}
+
+/* en-têtes de colonnes */
+ table.dataTable thead th {
+  background: #020617;
+  border-bottom: 2px solid rgba(148,163,184,0.5);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.09em;
+  font-size: 0.72rem;
+}
+
+/* Pagination des DataTables : boutons ronds, intégrés au thème sombre */
+.dataTables_wrapper .dataTables_paginate .paginate_button {
+  border-radius: 999px;
+  border: 1px solid transparent;
+  padding: 4px 10px;
+  margin: 0 2px;
+  background: transparent;
+  color: var(--text-soft) !important;
+}
+
+.dataTables_wrapper .dataTables_paginate .paginate_button:hover {
+  background: rgba(15,23,42,0.9);
+  border-color: rgba(148,163,184,0.6);
+  color: #e5e7eb !important;
+}
+
+.dataTables_wrapper .dataTables_paginate .paginate_button.current {
+  background: radial-gradient(circle at top, var(--accent), var(--accent-2));
+  color: #020617 !important;
+  box-shadow: 0 10px 24px rgba(15,23,42,0.85);
+}
+
+/* gtsummary / gt (container général) */
+/* Tableaux gt/gtsummary : modernisation du rendu tableau avec fond sombre et ombre */
+/* === Classe .gt_table ===
+   - Description : style appliqué via .gt_table
+   - À personnaliser selon l'esthétique souhaitée
+*/
+/* Tableaux gt/gtsummary : modernisation du rendu tableau avec fond sombre et ombre */
+/* === Classe .gt_table ===
+   - Description : style appliqué via .gt_table
+   - À personnaliser selon l'esthétique souhaitée
+*/
+.gt_table {
+  background-color: #020617 !important;
+  color: var(--text-main) !important;
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--border-soft);
+  box-shadow: var(--shadow-soft);
+  position: relative;   /* pour permettre un éventuel balayage interne */
+  overflow: hidden;
+}
+
+/* balayage lumineux discret uniquement sur le tableau gt */
+.boite-graph .gt_table::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: linear-gradient(120deg,
+                              transparent 0%,
+                              rgba(248,250,252,0.22) 45%,
+                              transparent 90%);
+  mix-blend-mode: screen;
+  opacity: 0;
+  pointer-events: none;
+  animation: lightSweep 8s linear infinite;
+}
+
+
+/* ------------------ 7. Messages / alerts ------------------ */
+
+/* === Messages d'alerte ===
+   - info / danger
+   - couleurs adaptées
+   - arrondis cohérents */
+/* Messages (info, danger...) : arrondis, couleurs adaptées */
+/* === Classe .alert ===
+   - Description : style appliqué via .alert
+   - À personnaliser selon l'esthétique souhaitée
+*/
+.alert {
+  border-radius: var(--radius-md);
+  border-width: 1px;
+  border-style: solid;
+  padding: 10px 12px;
+  font-size: 0.85rem;
+}
+
+/* === Classe .alert-info ===
+   - Description : style appliqué via .alert-info
+   - À personnaliser selon l'esthétique souhaitée
+*/
+.alert-info {
+  background: rgba(56,189,248,0.08);
+  border-color: rgba(56,189,248,0.4);
+  color: #e0f2fe;
+}
+
+/* === Classe .alert-danger ===
+   - Description : style appliqué via .alert-danger
+   - À personnaliser selon l'esthétique souhaitée
+*/
+.alert-danger {
+  background: rgba(248,113,113,0.08);
+  border-color: rgba(248,113,113,0.4);
+  color: #fecaca;
+}
+
+/* ------------------ 8. Divers utilitaires ------------------ */
+
+/* === Scrollbar custom (Chrome, Edge, Safari) ===
+   - barre de scroll fine
+   - adaptée au thème sombre
+   - thumb bleu-vert avec léger glow */
+
+/* largeur de la scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+/* rail de fond */
+::-webkit-scrollbar-track {
+  background: rgba(15,23,42,0.85);
+}
+
+/* poignée (thumb) */
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, var(--accent), var(--accent-2));
+  border-radius: 999px;
+}
+
+/* hover sur la poignée */
+::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(180deg, var(--accent-strong), var(--accent-2));
+}
+
+
+/* Texte atténué (utilisé pour notes, infos secondaires) */
+/* === Classe .muted ===
+   - Description : style appliqué via .muted
+   - À personnaliser selon l'esthétique souhaitée
+*/
+.muted {
+  color: var(--text-muted);
+  font-size: 0.85rem;
+}
+
+/* === Classe .badge-pill ===
+   - Description : style appliqué via .badge-pill
+   - À personnaliser selon l'esthétique souhaitée
+*/
+.badge-pill {
+  display: inline-block;
+  border-radius: 999px;
+  padding: 3px 10px;
+  font-size: 0.75rem;
+  background: rgba(15,23,42,0.9);
+  border: 1px solid var(--border-soft);
+  color: var(--text-soft);
+}
+
+/* petites cartes "chiffres clés" si tu en fais */
+/* === Cartes KPI ===
+   - affichage de valeurs clés
+   - très utile pour résumés statistiques
+   - style dashboard */
+/* Carte KPI (chiffres clés) : idéale pour mettre en avant une métrique importante */
+/* === Classe .kpi-card ===
+   - Description : style appliqué via .kpi-card
+   - À personnaliser selon l'esthétique souhaitée
+*/
+.kpi-card {
+  background: var(--bg-card);
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--border-soft);
+  padding: 12px 14px;
+  margin-bottom: 12px;
+  box-shadow: var(--shadow-soft);
+  position: relative;
+  overflow: hidden;
+}
+
+.kpi-card::before {
+  /* halo discret en haut à gauche */
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: radial-gradient(circle at 0 0, rgba(56,189,248,0.2), transparent 55%);
+  opacity: 0;
+  pointer-events: none;
+  transition: var(--transition-med);
+}
+
+.kpi-card:hover::before {
+  opacity: 1;
+}
+
+.kpi-card > * {
+  position: relative;
+  z-index: 1;
+}
+
+/* === Classe .kpi-label ===
+   - Description : style appliqué via .kpi-label
+   - À personnaliser selon l'esthétique souhaitée
+*/
+.kpi-label {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--text-muted);
+}
+
+/* === Classe .kpi-value ===
+   - Description : style appliqué via .kpi-value
+   - À personnaliser selon l'esthétique souhaitée
+*/
+.kpi-value {
+  font-size: 1.6rem;
+  font-weight: 600;
+  color: #e5f9ff;
+}
+
+/* === Classe .kpi-trend-up ===
+   - Description : style appliqué via .kpi-trend-up
+   - À personnaliser selon l'esthétique souhaitée
+*/
+.kpi-trend-up {
+  color: var(--accent-2);
+  font-size: 0.8rem;
+}
+
+/* === Classe .kpi-trend-down ===
+   - Description : style appliqué via .kpi-trend-down
+   - À personnaliser selon l'esthétique souhaitée
+*/
+.kpi-trend-down {
+  color: #f97373;
+  font-size: 0.8rem;
+}
+
+/* === POPUP DE BIENVENUE (Bonne année) === */
+/* === FEUX D'ARTIFICE : Particules autour du popup === */
+.fireworks-container {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  width: 200px;
+  height: 200px;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+  z-index: 9998;
+}
+
+.firework-particle {
+  position: absolute;
+  width: 6px;
+  height: 6px;
+  background: radial-gradient(circle, #fff, rgba(255,255,255,0.2));
+  border-radius: 50%;
+  opacity: 0;
+  animation: fireworkExplode 2s ease-out forwards;
+}
+
+@keyframes fireworkExplode {
+  0% { opacity: 0; transform: translate(0,0) scale(0.4); }
+  20% { opacity: 1; }
+  100% { opacity: 0; transform: translate(var(--tx), var(--ty)) scale(1); }
+}
+
+/* === CONFETTIS : chute verticale courte === */
+/* Confettis : chute à partir d'une zone au-dessus du popup (centrée) */
+.confetti {
+  position: fixed;
+  top: calc(50% - 180px);   /* zone de départ : juste au-dessus du popup centré */
+  width: 8px;
+  height: 12px;
+  background: var(--color);
+  opacity: 0;
+  animation: confettiFall 2.6s linear forwards;
+  z-index: 9997;
+}
+
+@keyframes confettiFall {
+  0% { opacity: 1; transform: translateY(0) rotate(0deg); }
+  100% { opacity: 0; transform: translateY(350px) rotate(360deg); }
+}
+#welcome-popup {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(0.9);
+  background: linear-gradient(145deg, rgba(15,23,42,0.96), rgba(15,23,42,0.85));
+  border: 1px solid rgba(148,163,184,0.45);
+  padding: 28px 40px;
+  border-radius: var(--radius-lg);
+  box-shadow: 0 25px 60px rgba(0,0,0,0.6);
+  color: var(--text-main);
+  font-size: 1.4rem;
+  z-index: 9999;
+  opacity: 0;
+  pointer-events: none;
+  animation: welcomeIn 0.6s ease-out forwards,
+             welcomeOut 0.6s ease-in forwards 2.4s;
+}
+
+@keyframes welcomeIn {
+  0%   { opacity: 0; transform: translate(-50%, -50%) scale(0.85); }
+  100% { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+}
+
+@keyframes welcomeOut {
+  0%   { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+  100% { opacity: 0; transform: translate(-50%, -50%) scale(0.85); }
+}
