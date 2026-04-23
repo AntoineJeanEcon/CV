@@ -126,6 +126,11 @@
       .info-panel { grid-template-columns: 1fr; }
     }
 
+    /* ── About block ── */
+    .about-block { max-width: 640px; }
+    .about-block p { font-size: 13.5px; line-height: 1.8; color: var(--dark); margin-bottom: 18px; text-align: justify; text-wrap: pretty; }
+    .about-block p:last-child { margin-bottom: 0; }
+
     /* ── Print ── */
     @media print {
       .topbar { position: static; }
@@ -148,7 +153,7 @@
     </div>
     <div class="topbar-right">
       <div class="contact-row">
-        <span class="c-item"><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="70111e041f191e155e1a15111e5e021f1e13111c1c1930171d11191c5e131f1d">[email&#160;protected]</a></span>
+        <span class="c-item">antoine.jean.roncalli@gmail.com</span>
         <span class="c-item">+33 6 64 77 03 43</span>
         <a href="https://www.linkedin.com/in/antoine-jean-eco" target="_blank" rel="noreferrer" class="c-link">LinkedIn ↗</a>
         <a href="https://www.researchgate.net/profile/Antoine-Jean-4" target="_blank" rel="noreferrer" class="c-link">ResearchGate ↗</a>
@@ -169,14 +174,20 @@
   <aside class="info-panel" id="panel-info"></aside>
 </div>
 
-<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+<script>
 // ── Translations ──────────────────────────────────────────────────────────────
 const T = {
   fr: {
     subtitle: "M1 Économie Appliquée · Université de Pau et des Pays de l'Adour",
     seeking:  "Recherche stage · À partir d'avril 2026 · 3 à 6 mois",
-    tabs: ["formation","experience","publications","projets"],
-    tabLabels: { formation:"Formation", experience:"Expériences", publications:"Publications", projets:"Projets" },
+    tabs: ["apropos","formation","experience","publications","projets"],
+    tabLabels: { apropos:"À propos", formation:"Formation", experience:"Expériences", publications:"Publications", projets:"Projets" },
+    apropos: `<div class="about-block">
+      <p>Je suis étudiant en Master d'économie appliquée à Pau. Si vous regardez cet onglet, c'est que vous voulez savoir qui est derrière le CV.</p>
+      <p>Mon parcours n'est pas classique. J'ai commencé par un CAP Agent de sécurité, un Bac Pro Sécurité, un BTS Comptabilité-Gestion. En parallèle, j'ai été à partir de mes 11 ans jeune sapeur-pompier, puis à mes 18 ans sapeur-pompier volontaire dans la Gironde, caporal, formateur. Ce n'est qu'après tout ça que j'ai intégré une Licence d'économie.</p>
+      <p>En 2025, encore en L3, j'ai effectué un stage en recherche quantitative chez Amundi Asset Management à Paris. Ça a débouché sur une publication avec Thierry Roncalli et Annalisa Usardi sur le capital naturel et la croissance économique.</p>
+      <p>En dehors de ça : délégué étudiant depuis la L1, encadrant ski, tuteur familial de mon frère en situation de handicap.</p>
+    </div>`,
     skillsLabel: "Compétences",
     langLabel: "Langues",
     contactLabel: "Contact",
@@ -201,7 +212,8 @@ const T = {
       { year:"2025–2026", title:"Master d'économie appliquée", org:"Université de Pau et des Pays de l'Adour — Pau" },
       { year:"2022–2025", title:"Licence d'économie", org:"Université de Pau et des Pays de l'Adour — Pau" },
       { year:"2019–2022", title:"BTS — Comptabilité Gestion", org:"Lycée Saint-Caprais — Agen" },
-      { year:"2016–2019", title:"Bac Pro — Métiers de la sécurité", org:"Lycée Professionnel Emile Combes — Bègles" },
+      { year:"2017–2019", title:"Bac Pro — Métiers de la sécurité", org:"Lycée Professionnel Emile Combes — Bègles" },
+      { year:"2016–2017", title:"CAP — Agent de sécurité", org:"Lycée Professionnel Emile Combes — Bègles" },
     ],
     experience: [
       { year:"3 mois · 2025", title:"Stage en recherche quantitative", org:"Amundi Asset Management — Paris",
@@ -226,8 +238,21 @@ const T = {
   en: {
     subtitle: "M1 Applied Economics · University of Pau and Pays de l'Adour",
     seeking:  "Seeking internship · From April 2026 · 3 to 6 months",
-    tabs: ["formation","experience","publications","projets"],
-    tabLabels: { formation:"Education", experience:"Experience", publications:"Publications", projets:"Projects" },
+    tabs: ["apropos","formation","experience","publications","projets"],
+    tabLabels: { apropos:"About", formation:"Education", experience:"Experience", publications:"Publications", projets:"Projects" },
+    apropos: `<div class="about-block">
+      <p>I'm a Master's student in Applied Economics in Pau. If you're looking at this tab, you want to know who is behind the CV.</p>
+      <p>My path isn't a classic one. I started with a CAP Security Agent certificate, a Vocational Baccalaureate in Security, then a BTS in Accounting. Alongside that, from age 11 I was a junior firefighter, and from 18 a volunteer firefighter in the Gironde, corporal, instructor. It was only after all of that that I enrolled in an Economics degree.</p>
+      <p>In 2025, still in my third year, I completed a quantitative research internship at Amundi Asset Management in Paris. It led to a publication with Thierry Roncalli and Annalisa Usardi on natural capital and economic growth.</p>
+      <p>Beyond that: student representative since my first year, ski instructor, and family guardian for my brother with a disability.</p>
+    </div>`,
+    formation: [
+      { year:"2025–2026", title:"Master's in Applied Economics", org:"University of Pau and Pays de l'Adour — Pau, France" },
+      { year:"2022–2025", title:"Bachelor's in Economics", org:"University of Pau and Pays de l'Adour — Pau, France" },
+      { year:"2019–2022", title:"Vocational Degree (BTS) — Accounting Management", org:"Lycée Saint-Caprais — Agen, France" },
+      { year:"2017–2019", title:"Vocational Baccalaureate — Security Professions", org:"Lycée Professionnel Emile Combes — Bègles, France" },
+      { year:"2016–2017", title:"CAP — Security Agent", org:"Lycée Professionnel Emile Combes — Bègles, France" },
+    ],
     skillsLabel: "Technical Skills",
     langLabel: "Languages",
     contactLabel: "Contact",
@@ -247,12 +272,6 @@ const T = {
     interests: [
       "🎿 Hiking, skiing, snowboarding, skateboarding",
       "❤️ Brother with a disability — family guardian",
-    ],
-    formation: [
-      { year:"2025–2026", title:"Master's in Applied Economics", org:"University of Pau and Pays de l'Adour — Pau, France" },
-      { year:"2022–2025", title:"Bachelor's in Economics", org:"University of Pau and Pays de l'Adour — Pau, France" },
-      { year:"2019–2022", title:"Vocational Degree (BTS) — Accounting Management", org:"Lycée Saint-Caprais — Agen, France" },
-      { year:"2016–2019", title:"Vocational Baccalaureate — Security Professions", org:"Lycée Professionnel Emile Combes — Bègles, France" },
     ],
     experience: [
       { year:"3 months · 2025", title:"Quantitative Research Intern", org:"Amundi Asset Management — Paris, France",
@@ -277,8 +296,14 @@ const T = {
   es: {
     subtitle: "M1 Economía Aplicada · Universidad de Pau y Países del Adour",
     seeking:  "Búsqueda de prácticas · Desde abril 2026 · 3 a 6 meses",
-    tabs: ["formation","experience","publications","projets"],
-    tabLabels: { formation:"Formación", experience:"Experiencia", publications:"Publicaciones", projets:"Proyectos" },
+    tabs: ["apropos","formation","experience","publications","projets"],
+    tabLabels: { apropos:"Sobre mí", formation:"Formación", experience:"Experiencia", publications:"Publicaciones", projets:"Proyectos" },
+    apropos: `<div class="about-block">
+      <p>Soy estudiante de Máster en Economía Aplicada en Pau. Si estás mirando esta pestaña, es porque quieres saber quién hay detrás del CV.</p>
+      <p>Mi trayectoria no es la clásica. Empecé con un CAP de agente de seguridad, un Bachillerato Profesional en Seguridad y un BTS en Contabilidad. En paralelo, desde los 11 años fui joven bombero y desde los 18 bombero voluntario en la Gironda, cabo, instructor. Solo después de todo eso me incorporé a un Grado en Economía.</p>
+      <p>En 2025, todavía en tercero de Grado, realicé unas prácticas de investigación cuantitativa en Amundi Asset Management en París. Dieron lugar a una publicación con Thierry Roncalli y Annalisa Usardi sobre el capital natural y el crecimiento económico.</p>
+      <p>Fuera de eso: delegado estudiantil desde primero, monitor de esquí y tutor familiar de mi hermano con discapacidad.</p>
+    </div>`,
     skillsLabel: "Competencias",
     langLabel: "Idiomas",
     contactLabel: "Contacto",
@@ -303,7 +328,8 @@ const T = {
       { year:"2025–2026", title:"Máster en Economía Aplicada", org:"Universidad de Pau y Países del Adour — Pau, Francia" },
       { year:"2022–2025", title:"Grado en Economía", org:"Universidad de Pau y Países del Adour — Pau, Francia" },
       { year:"2019–2022", title:"BTS — Contabilidad y Gestión", org:"Lycée Saint-Caprais — Agen, Francia" },
-      { year:"2016–2019", title:"Bachillerato Profesional — Seguridad", org:"Lycée Emile Combes — Bègles, Francia" },
+      { year:"2017–2019", title:"Bachillerato Profesional — Seguridad", org:"Lycée Emile Combes — Bègles, Francia" },
+      { year:"2016–2017", title:"CAP — Agente de seguridad", org:"Lycée Emile Combes — Bègles, Francia" },
     ],
     experience: [
       { year:"3 meses · 2025", title:"Prácticas en Investigación Cuantitativa", org:"Amundi Asset Management — París, Francia",
@@ -362,6 +388,7 @@ function renderMain(t) {
   // Reset curTab to first tab if saved value isn't valid
   if (!t.tabs.includes(curTab)) curTab = t.tabs[0];
   const panels = {
+    apropos:      t.apropos || '',
     formation:    t.formation.map(entryHTML).join(''),
     experience:   t.experience.map(entryHTML).join(''),
     publications: t.publications.map(e => `
