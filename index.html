@@ -96,6 +96,21 @@
     .proj-link { font-size: 10px; color: var(--dark); text-decoration: none; background: var(--pill); padding: 3px 10px; border-radius: 2px; margin-top: 8px; display: inline-block; }
     .proj-link:hover { background: #ccdce9; }
 
+    /* Year separator for projects */
+    .year-section { margin-bottom: 28px; }
+    .year-section:last-child { margin-bottom: 0; }
+    .year-header {
+      display: flex; align-items: center; gap: 14px;
+      margin-bottom: 18px;
+    }
+    .year-label {
+      font-size: 10px; letter-spacing: 2.2px; text-transform: uppercase;
+      color: var(--accent); font-weight: 500; white-space: nowrap;
+    }
+    .year-line {
+      flex: 1; height: 1px; background: var(--light);
+    }
+
     /* ── Info panel ── */
     .info-panel { display: flex; flex-direction: column; gap: 18px; }
     .info-card { background: var(--white); padding: 18px 18px 16px; border-radius: 2px; }
@@ -175,6 +190,9 @@
 </div>
 
 <script>
+// ── GitHub base ───────────────────────────────────────────────────────────────
+const GH = "https://github.com/AntoineJeanEcon/CV/blob/main/Travaux";
+
 // ── Translations ──────────────────────────────────────────────────────────────
 const T = {
   fr: {
@@ -182,6 +200,7 @@ const T = {
     seeking:  "Recherche stage · À partir d'avril 2026 · 3 à 6 mois",
     tabs: ["apropos","formation","experience","publications","projets"],
     tabLabels: { apropos:"À propos", formation:"Formation", experience:"Expériences", publications:"Publications", projets:"Projets" },
+    viewPdf: "Voir PDF ↗",
     apropos: `<div class="about-block">
       <p>Je suis étudiant en Master d'économie appliquée à Pau. Si vous regardez cet onglet, c'est que vous voulez savoir qui est derrière le CV.</p>
       <p>Mon parcours n'est pas classique. J'ai commencé par un CAP Agent de sécurité, un Bac Pro Métiers de la Sécurité, un BTS Comptabilité-Gestion. En parallèle, j'ai été à partir de mes 11 ans jeune sapeur-pompier, puis à mes 18 ans sapeur-pompier volontaire dans la Gironde, caporal, formateur. Ce n'est qu'après tout ça que j'ai intégré une Licence d'économie.</p>
@@ -194,9 +213,9 @@ const T = {
     infoLabel: "Supplément",
     skills: [
       { name:"LaTeX",  pct:100, note:"Usage journalier" },
-      { name:"MATLAB", pct:60,  note:"Simulations de recherche" },
+      { name:"Python", pct:70,  note:"Recherche &amp; analyse" },
       { name:"R",      pct:60,  note:"Analyse économétrique" },
-      { name:"Python", pct:40,  note:"Analyse de données" },
+      { name:"MATLAB", pct:55,  note:"Simulations de recherche" },
     ],
     otherSkills: ["Stata","SAS","Excel"],
     languages: [
@@ -228,10 +247,12 @@ const T = {
         detail:"Article de recherche portant sur l'intégration du capital naturel dans les modèles de croissance économique, issu de travaux menés en recherche quantitative chez Amundi Asset Management." },
     ],
     projets: [
-      { title:"Rapport économétrique", org:"Économétrie appliquée — Stata", link:"https://github.com/SampelElGrino/CV/blob/8ba0ec248d852cfb914915b9e67737e2514b4ddf/Rapport_%C3%A9conom%C3%A9trie.pdf" },
-      { title:"Analyse de données", org:"Statistique — SAS", link:"https://github.com/SampelElGrino/CV/blob/8ba0ec248d852cfb914915b9e67737e2514b4ddf/Analyse_De_Donn%C3%A9e.pdf" },
-      { title:"Rapport statistique", org:"Analyse statistique — R", link:"https://github.com/SampelElGrino/CV/blob/a77983b98c50cae1494f7733b317e757e4b6bc53/Statistique.pdf" },
-      { title:"Note d'intention du mémoire M1", org:"Économie appliquée — UPPA", link:"https://github.com/SampelElGrino/CV/blob/a77983b98c50cae1494f7733b317e757e4b6bc53/Note_d_intention_consolid%C3%A9e.pdf" },
+      { year:"2026", title:"Machine Learning",                  org:"M1 Économie appliquée — UPPA", link:`${GH}/2026_M1_Machine-Learning/Machine_Learning.pdf` },
+      { year:"2026", title:"Innovation énergétique",            org:"M1 Économie appliquée — UPPA", link:`${GH}/2026_M1_Innovation-Energetique/Innovation_energetique.pdf` },
+      { year:"2026", title:"Évaluation socio-économique",       org:"M1 Économie appliquée — UPPA · R", link:`${GH}/2026_M1_Evalutation-Socio-Economique/Yarlung%20Tsangpo.pdf` },
+      { year:"2025", title:"Rapport économétrique",             org:"M1 Économie appliquée — UPPA · Stata", link:`${GH}/2025_M1_Econometrie/Rapport_%C3%A9conom%C3%A9trie.pdf` },
+      { year:"2025", title:"Analyse de données",                org:"M1 Économie appliquée — UPPA · SAS", link:`${GH}/2025_M1_Analyse-de-donnees/Analyse_De_Donn%C3%A9e.pdf` },
+      { year:"2025", title:"Rapport statistique",               org:"M1 Économie appliquée — UPPA · R", link:`${GH}/2025_M1_Statistique/Statistique.pdf` },
     ],
   },
 
@@ -240,6 +261,7 @@ const T = {
     seeking:  "Seeking internship · From April 2026 · 3 to 6 months",
     tabs: ["apropos","formation","experience","publications","projets"],
     tabLabels: { apropos:"About", formation:"Education", experience:"Experience", publications:"Publications", projets:"Projects" },
+    viewPdf: "View PDF ↗",
     apropos: `<div class="about-block">
       <p>I'm a Master's student in Applied Economics in Pau. If you're looking at this tab, you want to know who is behind the CV.</p>
       <p>My path isn't a classic one. I started with a CAP Security Agent certificate, a Vocational Baccalaureate in Security, then a BTS in Accounting. Alongside that, from age 11 I was a junior firefighter, and from 18 a volunteer firefighter in the Gironde, corporal, instructor. It was only after all of that that I enrolled in an Economics degree.</p>
@@ -259,9 +281,9 @@ const T = {
     infoLabel: "Additional",
     skills: [
       { name:"LaTeX",  pct:100, note:"Daily use" },
-      { name:"MATLAB", pct:60,  note:"Research simulations" },
+      { name:"Python", pct:75,  note:"Research &amp; analysis" },
       { name:"R",      pct:60,  note:"Econometric analysis" },
-      { name:"Python", pct:40,  note:"Data analysis" },
+      { name:"MATLAB", pct:55,  note:"Research simulations" },
     ],
     otherSkills: ["Stata","SAS","Excel"],
     languages: [
@@ -286,10 +308,12 @@ const T = {
         detail:"Research article addressing the integration of natural capital into economic growth models. Produced during a quantitative research internship at Amundi Asset Management." },
     ],
     projets: [
-      { title:"Econometric Report", org:"Applied Econometrics — Stata", link:"https://github.com/SampelElGrino/CV/blob/8ba0ec248d852cfb914915b9e67737e2514b4ddf/Rapport_%C3%A9conom%C3%A9trie.pdf" },
-      { title:"Data Analysis", org:"Statistical Computing — SAS", link:"https://github.com/SampelElGrino/CV/blob/8ba0ec248d852cfb914915b9e67737e2514b4ddf/Analyse_De_Donn%C3%A9e.pdf" },
-      { title:"Statistics Report", org:"Statistical Analysis — R", link:"https://github.com/SampelElGrino/CV/blob/a77983b98c50cae1494f7733b317e757e4b6bc53/Statistique.pdf" },
-      { title:"Master's Thesis Intention Note", org:"Applied Economics — UPPA", link:"https://github.com/SampelElGrino/CV/blob/a77983b98c50cae1494f7733b317e757e4b6bc53/Note_d_intention_consolid%C3%A9e.pdf" },
+      { year:"2026", title:"Machine Learning",            org:"M1 Applied Economics — UPPA", link:`${GH}/2026_M1_Machine-Learning/Machine_Learning.pdf` },
+      { year:"2026", title:"Energy Innovation",           org:"M1 Applied Economics — UPPA", link:`${GH}/2026_M1_Innovation-Energetique/Innovation_energetique.pdf` },
+      { year:"2026", title:"Socio-Economic Evaluation",   org:"M1 Applied Economics — UPPA · R", link:`${GH}/2026_M1_Evalutation-Socio-Economique/Yarlung%20Tsangpo.pdf` },
+      { year:"2025", title:"Econometric Report",          org:"M1 Applied Economics — UPPA · Stata", link:`${GH}/2025_M1_Econometrie/Rapport_%C3%A9conom%C3%A9trie.pdf` },
+      { year:"2025", title:"Data Analysis",               org:"M1 Applied Economics — UPPA · SAS", link:`${GH}/2025_M1_Analyse-de-donnees/Analyse_De_Donn%C3%A9e.pdf` },
+      { year:"2025", title:"Statistics Report",           org:"M1 Applied Economics — UPPA · R", link:`${GH}/2025_M1_Statistique/Statistique.pdf` },
     ],
   },
 
@@ -298,6 +322,7 @@ const T = {
     seeking:  "Búsqueda de prácticas · Desde abril 2026 · 3 a 6 meses",
     tabs: ["apropos","formation","experience","publications","projets"],
     tabLabels: { apropos:"Sobre mí", formation:"Formación", experience:"Experiencia", publications:"Publicaciones", projets:"Proyectos" },
+    viewPdf: "Ver PDF ↗",
     apropos: `<div class="about-block">
       <p>Soy estudiante de Máster en Economía Aplicada en Pau. Si estás mirando esta pestaña, es porque quieres saber quién hay detrás del CV.</p>
       <p>Mi trayectoria no es la clásica. Empecé con un CAP de agente de seguridad, un Bachillerato Profesional en Seguridad y un BTS en Contabilidad. En paralelo, desde los 11 años fui joven bombero y desde los 18 bombero voluntario en la Gironda, cabo, instructor. Solo después de todo eso me incorporé a un Grado en Economía.</p>
@@ -310,9 +335,9 @@ const T = {
     infoLabel: "Información",
     skills: [
       { name:"LaTeX",  pct:100, note:"Uso diario" },
-      { name:"MATLAB", pct:60,  note:"Simulaciones de investigación" },
+      { name:"Python", pct:75,  note:"Investigación &amp; análisis" },
       { name:"R",      pct:60,  note:"Análisis econométrico" },
-      { name:"Python", pct:40,  note:"Análisis de datos" },
+      { name:"MATLAB", pct:55,  note:"Simulaciones de investigación" },
     ],
     otherSkills: ["Stata","SAS","Excel"],
     languages: [
@@ -344,17 +369,19 @@ const T = {
         detail:"Artículo de investigación sobre la integración del capital natural en los modelos de crecimiento económico, realizado durante prácticas en Amundi Asset Management." },
     ],
     projets: [
-      { title:"Informe econométrico", org:"Econometría aplicada — Stata", link:"https://github.com/SampelElGrino/CV/blob/8ba0ec248d852cfb914915b9e67737e2514b4ddf/Rapport_%C3%A9conom%C3%A9trie.pdf" },
-      { title:"Análisis de datos", org:"Estadística — SAS", link:"https://github.com/SampelElGrino/CV/blob/8ba0ec248d852cfb914915b9e67737e2514b4ddf/Analyse_De_Donn%C3%A9e.pdf" },
-      { title:"Informe estadístico", org:"Análisis estadístico — R", link:"https://github.com/SampelElGrino/CV/blob/a77983b98c50cae1494f7733b317e757e4b6bc53/Statistique.pdf" },
-      { title:"Nota de intención del máster M1", org:"Economía Aplicada — UPPA", link:"https://github.com/SampelElGrino/CV/blob/a77983b98c50cae1494f7733b317e757e4b6bc53/Note_d_intention_consolid%C3%A9e.pdf" },
+      { year:"2026", title:"Machine Learning",                org:"M1 Economía aplicada — UPPA", link:`${GH}/2026_M1_Machine-Learning/Machine_Learning.pdf` },
+      { year:"2026", title:"Innovación energética",           org:"M1 Economía aplicada — UPPA", link:`${GH}/2026_M1_Innovation-Energetique/Innovation_energetique.pdf` },
+      { year:"2026", title:"Evaluación socio-económica",      org:"M1 Economía aplicada — UPPA · R", link:`${GH}/2026_M1_Evalutation-Socio-Economique/Yarlung%20Tsangpo.pdf` },
+      { year:"2025", title:"Informe econométrico",            org:"M1 Economía aplicada — UPPA · Stata", link:`${GH}/2025_M1_Econometrie/Rapport_%C3%A9conom%C3%A9trie.pdf` },
+      { year:"2025", title:"Análisis de datos",               org:"M1 Economía aplicada — UPPA · SAS", link:`${GH}/2025_M1_Analyse-de-donnees/Analyse_De_Donn%C3%A9e.pdf` },
+      { year:"2025", title:"Informe estadístico",             org:"M1 Economía aplicada — UPPA · R", link:`${GH}/2025_M1_Statistique/Statistique.pdf` },
     ],
   },
 };
 
 // ── Render ────────────────────────────────────────────────────────────────────
 let curLang = localStorage.getItem('cv-lang') || 'fr';
-let curTab  = localStorage.getItem('cv-tab')  || 'formation';
+let curTab  = localStorage.getItem('cv-tab')  || 'apropos';
 
 function renderTabs(t) {
   const nav = document.getElementById('tabs');
@@ -384,6 +411,36 @@ function entryHTML(e) {
     </div>`;
 }
 
+// Group projects by year, descending order
+function groupProjectsByYear(projets, t) {
+  const groups = {};
+  projets.forEach(e => {
+    const y = e.year || '—';
+    if (!groups[y]) groups[y] = [];
+    groups[y].push(e);
+  });
+  const sortedYears = Object.keys(groups).sort((a, b) => {
+    const ya = parseInt((a.match(/\d{4}/) || ['0'])[0]);
+    const yb = parseInt((b.match(/\d{4}/) || ['0'])[0]);
+    return yb - ya;
+  });
+  return sortedYears.map(y => `
+    <div class="year-section">
+      <div class="year-header">
+        <span class="year-label">${y}</span>
+        <span class="year-line"></span>
+      </div>
+      ${groups[y].map(e => `
+        <div class="entry">
+          <div class="entry-body">
+            <div class="entry-title">${e.title}</div>
+            <div class="entry-org">${e.org}</div>
+            <a href="${e.link}" target="_blank" rel="noreferrer" class="proj-link">${t.viewPdf}</a>
+          </div>
+        </div>`).join('')}
+    </div>`).join('');
+}
+
 function renderMain(t) {
   // Reset curTab to first tab if saved value isn't valid
   if (!t.tabs.includes(curTab)) curTab = t.tabs[0];
@@ -405,14 +462,7 @@ function renderMain(t) {
         </div>
         <div class="entry-year">${e.year}</div>
       </div>`).join(''),
-    projets: t.projets.map(e => `
-      <div class="entry">
-        <div class="entry-body">
-          <div class="entry-title">${e.title}</div>
-          <div class="entry-org">${e.org}</div>
-          <a href="${e.link}" target="_blank" rel="noreferrer" class="proj-link">Voir PDF ↗</a>
-        </div>
-      </div>`).join(''),
+    projets: groupProjectsByYear(t.projets, t),
   };
   document.getElementById('main').innerHTML = t.tabs.map(id => `
     <div id="panel-${id}" class="panel">
