@@ -32,8 +32,10 @@ A. Jean, T. Roncalli, A. Usardi — 2025
 → [Amundi Research Center](https://research-center.amundi.com/article/natural-capital-and-economic-growth)  
 → [ResearchGate](https://www.researchgate.net/publication/394967692_Natural_Capital_and_Economic_Growth)  
 → [SSRN](https://papers.ssrn.com/sol3/papers.cfm?abstract_id=5405959)
+→ [Thierry Roncalli](http://www.thierry-roncalli.com/download/Natural_Capital_Working_Paper.pdf)
+→ [Antoine Jean](https://github.com/AntoineJeanEcon/CV/blob/e6e364772b7083ae5b4a22fd61187ebc14ba8221/Publications/2025_Natural-capital-and-economic-growth/Natural_Capital_Working_Paper.pdf)
 
----
+--- 
 
 ## Contact
 
