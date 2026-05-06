@@ -1,0 +1,350 @@
+"Variable","Label","Type_Stata","Type_R","N_Manquants","Pct_Manquant"
+"CodePays","Code ISO 3166-1 alpha-3","%9s","character",0,0
+"vague","Vague","%6.2f","numeric",0,0
+"grappe","Grappe","%6.2f","numeric",0,0
+"menage","Identifiant du ménage","%6.2f","numeric",0,0
+"s01q00a","1.00a Membres__id","%6.0f","numeric",0,0
+"s01q00c","1.00c Répondant de cette section","%10.0g","numeric",0,0
+"s01q01","1.01. Sexe","%6.2f","haven_labelled",0,0
+"s01q02","1.02. Lien de parenté avec le chef de ménage","%6.2f","haven_labelled",0,0
+"s01q03a","1.03a. Date de naissance","%6.2f","numeric",18009,43.46
+"s01q03b","1.03b. Mois de naissance","%6.2f","haven_labelled",0,0
+"s01q03c","1.03c. Année de naissance","%6.2f","numeric",1654,3.99
+"s01q04a","1.04a Age en annees au dernier anniversaire","%6.2f","numeric",39780,96.01
+"s01q04b","1.04b Age en mois","%6.2f","numeric",41165,99.35
+"s01q05","1.05 Dispose d'un acte de naissance","%6.2f","haven_labelled",22619,54.59
+"s01q06","1.06 Acte de naissance vu","%6.2f","haven_labelled",29377,70.9
+"s01q07","1.07. Situation matrimoniale","%6.2f","haven_labelled",14035,33.87
+"s01q08","1.08. Le(s) conjoint(s) vit (ou vivent) dans le ménage","%6.2f","haven_labelled",27116,65.44
+"s01q09__0","1.09. Numero ordre du conjoint 1","%10.0g","numeric",28403,68.55
+"s01q09__1","1.09. Numero ordre du conjoint 2","%10.0g","numeric",40582,97.94
+"s01q09__2","1.09. Numero ordre du conjoint 3","%10.0g","numeric",41324,99.73
+"s01q09__3","1.09. Numero ordre du conjoint 4","%10.0g","numeric",41424,99.98
+"s01q10","1.10. Age de mariage pour la première fois","%6.2f","numeric",25223,60.88
+"s01q11","1.11. Présence au moment de l'enquête","%6.2f","haven_labelled",0,0
+"s01q12","1.12. Vit de manière continue dans ce ménage depuis au moins 6 mois","%6.2f","haven_labelled",0,0
+"s01q13","1.13. A l'intention de rester dans le ménage au moins 6 mois","%6.2f","haven_labelled",40697,98.22
+"s01q14","1.14. Religion","%6.2f","haven_labelled",0,0
+"s01q15","1.15. Nationalité","%14.2f","haven_labelled",0,0
+"s01q17","1.17.  né dans la localité","%6.2f","haven_labelled",0,0
+"s01q18","1.18. A déjà vécu dans une autre localité pendant plus de 6 mois","%6.2f","haven_labelled",422,1.02
+"s01q19","1.19. Dernière localité de residence avant de venir","%6.2f","haven_labelled",31474,75.96
+"s01q20","1.20. Nombre années vécu dans cette localité avant de venir","%6.2f","numeric",31477,75.97
+"s01q21","1.21. Raison principale pour laquelle est venu vivre","%6.2f","haven_labelled",31474,75.96
+"s01q22","1.22. Le père habite dans le ménage","%6.2f","haven_labelled",0,0
+"s01q23","1.23. Selectionner le nom du père","%10.0g","numeric",25211,60.85
+"s01q24","1.24. Père est en vie","%6.2f","haven_labelled",16223,39.15
+"s01q25","1.25. Niveau d'instruction le plus élevé atteint par le père","%6.2f","haven_labelled",16223,39.15
+"s01q26","1.26. Branche d'activité du père","%6.2f","haven_labelled",16223,39.15
+"s01q27","1.27. Catégorie socioprofessionnelle du père","%6.2f","haven_labelled",17027,41.09
+"s01q28","1.28. Secteur institutionnel du père","%6.2f","haven_labelled",17027,41.09
+"s01q29","1.29. La mère habite dans le ménage","%6.2f","haven_labelled",0,0
+"s01q30","1.30. Selectionner le nom de la mere","%10.0g","numeric",21169,51.09
+"s01q31","1.31. La mère  est en vie","%6.2f","haven_labelled",20265,48.91
+"s01q32","1.32. Niveau d'instruction le plus élevé atteint par la mère","%6.2f","haven_labelled",20265,48.91
+"s01q33","1.33. Branche d'activité de la mère","%6.2f","haven_labelled",20265,48.91
+"s01q34","1.34. Catégorie socioprofessionnelle de la mère","%6.2f","haven_labelled",24160,58.31
+"s01q35","1.35. Secteur institutionnel de la mère","%6.2f","haven_labelled",24160,58.31
+"s01q36","1.36. Possède un téléphone portable","%6.2f","haven_labelled",14035,33.87
+"s01q37","1.37. A utilisé un telephone au cours des 7 derniers jours meme si pas de teleph","%6.2f","haven_labelled",31869,76.92
+"s01q38","1.38. Montant dépensé pour les cartes prépayées y compris les transferts","%6.2f","numeric",21504,51.9
+"s01q39__1","1.39. Accès à internet sur téléphone","%6.2f","haven_labelled",16076,38.8
+"s01q39__2","1.39. Accès à internet au bureau","%6.2f","haven_labelled",16076,38.8
+"s01q39__3","1.39. Accès à internet au Cyber café","%6.2f","haven_labelled",16076,38.8
+"s01q39__4","1.39. Accès a internet a domicile","%6.2f","haven_labelled",16076,38.8
+"s01q39__5","1.39. Acces à internet a l'ecole/Universite","%6.2f","haven_labelled",16076,38.8
+"code_unique","","%9s","character",0,0
+"s02q00","2.00. Répondant","%10.0g","numeric",4044,9.76
+"s02q01__1","2.01. Peut lire un petit texte en langue francaise","%6.2f","haven_labelled",4044,9.76
+"s02q01__2","2.01. Peut lire un petit texte en une langue locale","%6.2f","haven_labelled",4044,9.76
+"s02q01__3","2.01. Peut lire un petit texte en une autre","%6.2f","haven_labelled",4044,9.76
+"s02q02__1","2.02. Peut-il écrire un petit texte en langue francaise","%6.2f","haven_labelled",4055,9.79
+"s02q02__2","2.02. Peut-il écrire un petit texte en une langue locale","%6.2f","haven_labelled",4084,9.86
+"s02q02__3","2.02. Peut-il écrire un petit texte en autre langue","%6.2f","haven_labelled",4093,9.88
+"s02q03","2.03. A fait ou va actuellement dans une école","%6.2f","haven_labelled",4044,9.76
+"s02q04","2.04 Raison principale n'avoir pas fait des études","%6.2f","haven_labelled",21193,51.15
+"s02q05","2.05. A suivi une école non formelle ou une formation non formelle","%6.2f","haven_labelled",21193,51.15
+"s02q06","2.06. Education non-formelle fréquentée","%6.2f","haven_labelled",34143,82.4
+"s02q07","2.07. Age entré à l'école","%6.2f","numeric",24306,58.66
+"s02q08","2.08. A frequente une école au cours de l'année scolaire 2016/2017","%6.2f","haven_labelled",24285,58.61
+"s02q09","2.09. Structure qui gère l'école fréquentée  au cours de l'année 2016/2017","%6.2f","haven_labelled",31318,75.59
+"s02q10","2.10. Résultat obtenu au cours de l'année 2016/2017","%6.2f","haven_labelled",31318,75.59
+"s02q11","2.11. Raison d'abandon de l'école en cours d'année","%6.2f","haven_labelled",41375,99.86
+"s02q12","2.12. A fréquenté une école au cours de l'année scolaire 2017/2018","%6.2f","haven_labelled",24285,58.61
+"s02q13","2.13. Raison principale de non fréquentation de l'école en 2017/2018","%6.2f","haven_labelled",35256,85.09
+"s02q14","2.14. Niveau d'études suivi au cours de l'année 2017/2018","%6.2f","haven_labelled",30463,73.52
+"s02q15","2.15. Filière suivie","%6.2f","haven_labelled",40155,96.91
+"s02q16","2.16. Classe fréquentée  dans le niveau déclaré au cours de 2017/2018","%6.2f","haven_labelled",30463,73.52
+"s02q17","2.17. Est satisfait de l'enseignement reçu à l'école","%6.2f","haven_labelled",30463,73.52
+"s02q18__1","2.18. Rencontre des problèmes d'Insuffisance de livres/fournitures dans le cadre","%6.2f","haven_labelled",30472,73.54
+"s02q18__2","2.18. Rencontre des problèmes d'Insuffisance de tables bancs et d'équipements da","%6.2f","haven_labelled",30484,73.57
+"s02q18__3","2.18. Rencontre des problèmes dAbsentéisme des enseignants/grève dans le cadre","%6.2f","haven_labelled",30473,73.55
+"s02q18__4","2.18. Rencontre des problèmes d'Enseignement pas satisfaisant dans le cadre  de","%6.2f","haven_labelled",30487,73.58
+"s02q18__5","2.18. Rencontre des problèmes d'Effectifs pléthoriques dans le cadre  de sa scol","%6.2f","haven_labelled",30478,73.56
+"s02q18__6","2.18. Rencontre des problèmes d'Insuffisance d'enseignants dans le cadre  de sa","%6.2f","haven_labelled",30494,73.6
+"s02q18__7","2.18. Rencontre des problèmes de Manque de toilettes dans le cadre  de sa scolar","%6.2f","haven_labelled",30481,73.57
+"s02q18__8","2.18. Rencontre des problèmes de Fréquence des cotisations dans le cadre  de sa","%6.2f","haven_labelled",30480,73.56
+"s02q18__9","2.18. Rencontre des problèmes de Salle de classe en mauvais état  dans le cadre","%6.2f","haven_labelled",30492,73.59
+"s02q19","2.19. Structure qui gère l'école fréquentée  au cours de l'année 2017/2018","%6.2f","haven_labelled",30463,73.52
+"s02q20","2.20. Montant des frais d'inscription et de scolarité  pour l'année 2017/2018","%6.2f","numeric",30562,73.76
+"s02q21","2.21. Montant des cotisations pour l'année scolaire 2017/2018","%6.2f","numeric",30499,73.61
+"s02q22","2.22. Montant des frais de fournitures pour l'année 2017/2018","%6.2f","numeric",30471,73.54
+"s02q23","2.23. Montant des frais pour les  autres matériels scolaires pour l'année scolai","%6.2f","numeric",30487,73.58
+"s02q24","2.24. Montant des frais d'uniformes pour l'année scolaire 2017/2018","%6.2f","numeric",30471,73.54
+"s02q25","2.25. Montant des frais de cantine scolaire ou de restauration de l'année scolai","%6.2f","numeric",30531,73.69
+"s02q26","2.26. Montant des frais de transport scolairepour l'année scolaire 2017/2018","%6.2f","numeric",30532,73.69
+"s02q27","2.27. Montant des autres dépenses scolaires (cours de soutien ou de repetition)","%6.2f","numeric",30508,73.63
+"s02q28","2.28. Montant de la bourse/Allocation reçu au cours de l'année 2017/2018","%6.2f","numeric",30523,73.67
+"s02q29","2.29. Niveau d'études le plus élevé atteint","%6.2f","haven_labelled",35256,85.09
+"s02q30","2.30. Filière suivie au cours de l'année scolaire","%6.2f","haven_labelled",38994,94.11
+"s02q31","2.31. Dernière classe fréquentée dans le niveau déclaré","%6.2f","haven_labelled",35256,85.09
+"s02q32","2.32. Année de frequentation pour la dernière fois","%6.2f","numeric",35256,85.09
+"s02q33","2.33. Diplôme le plus elevé obtenu","%6.2f","haven_labelled",24285,58.61
+"s03q00","3.00. Répondant","%10.0g","numeric",0,0
+"s03q01","3.01. A eu un problème de santé, maladie ou un accident au cours des 30 derniers","%6.2f","haven_labelled",0,0
+"s03q02","3.02. Principal problème de santé eu","%6.2f","haven_labelled",10409,25.12
+"s03q03","3.03. Ce problème de santé a empêché de mener ses activites quotidiennes","%6.2f","haven_labelled",10409,25.12
+"s03q04","3.04. Nombre de temps que la maladie a empêché de mener ses activites","%6.2f","haven_labelled",21455,51.78
+"s03q05","3.05. A consulté dans un service  de santé, ou un guérisseur","%6.2f","haven_labelled",10409,25.12
+"s03q06","3.06. Pour quelle raison principale %rostertitle% n'a-t-il pas été consulté (e)?","%6.2f","haven_labelled",27888,67.31
+"s03q07","3.07. Lieu de consultation la première fois pour cet épisode de maladie","%6.2f","haven_labelled",23958,57.82
+"s03q08","3.08. Personne consulté la première fois pour cet épisode de maladie","%6.2f","haven_labelled",23958,57.82
+"s03q09","3.09. A été satisfait du service reçu lors de cette première consultation","%6.2f","haven_labelled",23958,57.82
+"s03q10__1","3.10. A eu des problèmes d'établissement pas propre au cours de sa visite","%6.2f","haven_labelled",23958,57.82
+"s03q10__2","3.10. A eu des problèmes d'attente longue au cours de sa visite","%6.2f","haven_labelled",23958,57.82
+"s03q10__3","3.10. A eu des problèmes de personnel non qualifié au cours de sa visite","%6.2f","haven_labelled",23958,57.82
+"s03q10__4","3.10. A eu des problèmes de coût trop cher au cours de sa visite","%6.2f","haven_labelled",23958,57.82
+"s03q10__5","3.10. A eu des problèmes de pas de médicament au cours de sa visite","%6.2f","haven_labelled",23958,57.82
+"s03q10__6","3.10. A eu des problèmes de traitement inefficace au cours de sa visite","%6.2f","haven_labelled",23958,57.82
+"s03q10__7","3.10. A eu des problèmes de mauvais accueil au cours de sa visite","%6.2f","haven_labelled",23958,57.82
+"s03q10__8","3.10. A eu des problèmes d'absence du personnel au cours de sa visite","%6.2f","haven_labelled",23958,57.82
+"s03q10__9","3.10. A eu d'autres problèmes au cours de sa visite","%6.2f","haven_labelled",23958,57.82
+"s03q11","3.11 Distance entre le domicile et le lieu de la premiere consultation","%6.2f","haven_labelled",23958,57.82
+"s03q12","3.12  A consulté un service de santé ou un guérisseur au cours des 3 derniers mo","%6.2f","haven_labelled",17479,42.19
+"s03q13","3.13 Montant des frais de consultation d'un médecin généraliste des 3 derniers m","%6.2f","numeric",20659,49.86
+"s03q14","3.14 Montant des frais de consultation d'un médecin spécialiste des 3 derniers m","%6.2f","numeric",37032,89.38
+"s03q15","3.15 Montant des frais de consultation pour un dentiste des 3 derniers mois","%6.2f","numeric",38295,92.42
+"s03q16","3.16 Montant des frais de consultation d'un guérisseur traditionnel des 3 dernie","%6.2f","numeric",36037,86.97
+"s03q17","3.17 Montant des frais des examens médicaux et de soins des 3 derniers mois","%6.2f","numeric",29714,71.71
+"s03q18","3.18 Montant des frais de médicaments des 3 derniers mois","%6.2f","numeric",12314,29.72
+"s03q19","3.19. A eu un problème de santé au cours des 12 derniers mois","%6.2f","haven_labelled",0,0
+"s03q20","3.20. Nombre de fois d'hospitalisation  au cours des 12 derniers mois","%6.2f","numeric",39564,95.49
+"s03q21","3.21. Dernier problème de santé qui a necessite une hospitalisation","%6.2f","haven_labelled",39562,95.48
+"s03q22","3.22. Pour ce dernier problème de santé  ayant nécéssité une hospitalisation au","%6.2f","numeric",39566,95.49
+"s03q23","3.23. Lieu d'hospitalisation pour le dernier problème de santé","%6.2f","haven_labelled",39562,95.48
+"s03q24","3.24. Montant des frais d'hospitalisation au cours des 12 derniers mois","%6.2f","numeric",39659,95.72
+"s03q25","3.25. A supporté des frais pour appareils médicaux thérapeutiques tels que des b","%6.2f","haven_labelled",0,0
+"s03q26","3.26. Montant des frais pour verres correcteurs, monture de lunettes","%6.2f","numeric",41351,99.8
+"s03q27","3.27. Montant dépensé au cours des 12 derniers mois pour des béquilles","%6.2f","numeric",41329,99.75
+"s03q28","3.28. A supporté des frais de vaccination, circoncision ou bilan de santé","%6.2f","haven_labelled",0,0
+"s03q29","3.29. Montant des dépenses de vaccination","%6.2f","numeric",38506,92.93
+"s03q30","3.30. Montant des dépenses de circoncision","%6.2f","numeric",40714,98.26
+"s03q31","3.31. Montant des dépenses de bilan de santé (check up)","%6.2f","numeric",39472,95.26
+"s03q32","3.32. Est couvert par une assurance maladie","%6.2f","haven_labelled",0,0
+"s03q33","3.33. Taux de remboursement (couverture)","%6.2f","numeric",41217,99.48
+"s03q34","3.34. Personne qui parraine/finance l'assurance maladie","%6.2f","haven_labelled",41216,99.47
+"s03q35","3.35. Mode de remboursement","%6.2f","haven_labelled",41216,99.47
+"s03q36","3.36. Bénéficie d'une prise en charge particulière (Mutuelle, consultation gratu","%6.2f","haven_labelled",0,0
+"s03q37__1","3.37. Mutuelle comme type de prise en charge","%6.2f","haven_labelled",40267,97.18
+"s03q37__2","3.37. Consultation gratuite(CPN) comme type de prise en charge","%6.2f","haven_labelled",40267,97.18
+"s03q37__3","3.37. Gratuité ciblée comme type de prise en charge","%6.2f","haven_labelled",40267,97.18
+"s03q37__4","3.37. Gratuité totale comme type de prise en charge","%6.2f","haven_labelled",40267,97.18
+"s03q37__5","3.37. Programme de prise en charge integré des maladies de l'enfant comme type d","%6.2f","haven_labelled",40267,97.18
+"s03q37__6","3.37. Autres programmes spéciaux comme type de prise en charge","%6.2f","haven_labelled",40267,97.18
+"s03q38","3.38. Dort habituellement sous une moustiquaire","%6.2f","haven_labelled",0,0
+"s03q39","3.39. A dormi sous une moustiquaire la nuit dernière","%6.2f","haven_labelled",0,0
+"s03q40","3.40. Moyen principal utilisé pour se protéger des piqûres de moustiques","%6.2f","haven_labelled",0,0
+"s03q41","3.41. A des difficultés pour voir, même avec des lunettes","%6.2f","haven_labelled",0,0
+"s03q42","3.42. A des difficultés pour entendre même avec une aide auditive","%6.2f","haven_labelled",0,0
+"s03q43","3.43. A des difficultés pour marcher ou monter les escaliers","%6.2f","haven_labelled",0,0
+"s03q44","3.44. A des difficultés pour se rappeler ou se concentrer","%6.2f","haven_labelled",0,0
+"s03q45","3.45. A des difficultés pour accomplir des tâches comme se laver ou s'habiller","%6.2f","haven_labelled",0,0
+"s03q46","3.46. A des difficultés pour communiquer ou se faire comprendre","%6.2f","haven_labelled",0,0
+"s04q00","4.00. Répondant","%10.0g","numeric",7305,17.63
+"s04q01","4.01. Heures conscrées à faire des course au marché au cours des 7 derniers jour","%6.2f","numeric",7307,17.64
+"s04q02","4.02. Heures conscrées aux travaux domestiques au cours des 7 derniers jours","%6.2f","numeric",7306,17.63
+"s04q03","4.03. Heures conscrées à la garde des enfants au cours des 7 derniers jours","%6.2f","numeric",7306,17.63
+"s04q04","4.04. Heures conscrées pour aller chercher de l'eau au cours des 7 derniers jour","%6.2f","numeric",7305,17.63
+"s04q05","4.05. Heures conscrées pour aller chercher du bois au cours des 7 derniers jours","%6.2f","numeric",7305,17.63
+"s04q06","4.06. A travaillé au moins une heure dans un chanp au cours des 7 derniers jours","%6.2f","haven_labelled",7305,17.63
+"s04q07","4.07. A travaillé au moins une heure dans un commerce, transformation au cours d","%6.2f","haven_labelled",7305,17.63
+"s04q08","4.08. A travaillé au moins une heure pour une entreprise, l'état au cours des 7","%6.2f","haven_labelled",7305,17.63
+"s04q09","4.09. A travaillé au moins une heure comme apprenti, stagiaire au cours des 7 de","%6.2f","haven_labelled",7305,17.63
+"s04q11","4.11. Possede un emploi qu'il aurait du exercer au cours des 7 derniers jours","%6.2f","haven_labelled",21572,52.06
+"s04q12","4.12. Raison de n'avoir pas travaillé au cours des 7 derniers jours","%6.2f","haven_labelled",41094,99.18
+"s04q13","4.13. A au moins travaillé dans un champ, jardin sans rémunération au cours des","%6.2f","haven_labelled",21912,52.88
+"s04q14","4.14. A au moins travaillé dans un commerce, transformation sans rémunération au","%6.2f","haven_labelled",23673,57.13
+"s04q15","4.15. A cherché un emploi rémunéré au cours des 30 derniers jours","%6.2f","haven_labelled",39293,94.83
+"s04q16","4.16. Moyen pour subvenir principalement à ses besoins","%6.2f","haven_labelled",24053,58.05
+"s04q17","4.17. A cherché un emploi rémunéré au cours des 30 derniers jours","%6.2f","haven_labelled",24053,58.05
+"s04q18","4.18. Raison principale de ne pas avoir cherché du travail","%6.2f","haven_labelled",24435,58.97
+"s04q19","4.19. Est néanmoins disponible pour travailler tout de suite","%6.2f","haven_labelled",24587,59.34
+"s04q20","4.20. Moment disponible pour travailler","%6.2f","haven_labelled",40822,98.52
+"s04q21","4.21. Nombre de mois sans emploi","%6.2f","numeric",40824,98.53
+"s04q22","4.22. Durée en mois de recherche d'un emploi","%6.2f","numeric",40825,98.53
+"s04q23","4.23. Raison de recherche du travail","%6.2f","haven_labelled",40822,98.52
+"s04q24__1","4.24. Relations personnelles, Parents comme canal de recherche du travail","%6.2f","haven_labelled",40822,98.52
+"s04q24__2","4.24. Concours, Auprès des employeurs comme canal de recherche du travail","%6.2f","haven_labelled",40822,98.52
+"s04q24__3","4.24. Petites annonces par Radio, TV, Journal, Internet comme canal de recherche","%6.2f","haven_labelled",40822,98.52
+"s04q24__4","4.24. AGUIPE/FONIJ comme canal de recherche du travail","%6.2f","haven_labelled",40822,98.52
+"s04q24__5","4.24. Cabinet de placement comme canal de recherche du travail","%6.2f","haven_labelled",40822,98.52
+"s04q24__6","4.24. Démarche personnelle (créer sa propre affaire) comme canal de recherche du","%6.2f","haven_labelled",40822,98.52
+"s04q24__7","4.24. Autre comme canal de recherche du travail","%6.2f","haven_labelled",40822,98.52
+"s04q25","4.25. Genre d'emploi recherché","%6.2f","haven_labelled",40822,98.52
+"s04q26","4.26. Montant mensuel minimum  acceptable pour travailler","%6.2f","numeric",40983,98.91
+"s04q27","4.27. A exercé une des activités au cours des 12 derniers mois","%6.2f","haven_labelled",24053,58.05
+"s04q28a","4.28. Emploi principal exercé","%6.2f","haven_labelled",41294,99.66
+"s04q28b","4.28. Emploi Sécondaire","%68.2f","haven_labelled",41294,99.66
+"s04q29b","4.29. Code de l'emploi / profession","%6.2f","haven_labelled",24547,59.24
+"s04q29c","4.29. Sous-groupe","%6.2f","haven_labelled",24624,59.43
+"s04q29d","4.29. Code profession / Metier","%6.2f","haven_labelled",26171,63.16
+"s04q30b","4.30. Code de section","%6.2f","haven_labelled",24547,59.24
+"s04q30c","4.30. Code de branche d'activité","%6.2f","haven_labelled",24770,59.78
+"s04q30d","4.30. Code d'activité","%6.2f","haven_labelled",25456,61.44
+"s04q31","4.31. Principal employeur dans cet emploi","%6.2f","haven_labelled",24547,59.24
+"s04q32","4.32. Nombre de mois d'exercice dans cet emploi au cours des 12 derniers mois","%6.2f","numeric",24547,59.24
+"s04q33","4.33. Bénéficie habituellement de congés payés","%6.2f","haven_labelled",24547,59.24
+"s04q34","4.34. Nombre de jours de congé annuel joui au cours des 12 derniers mois","%6.2f","numeric",40113,96.81
+"s04q35","4.35. Bénéficie de congés maladie","%6.2f","haven_labelled",24547,59.24
+"s04q36","4.36. Nombre de jours par mois consacré habituellement à cet emploi","%6.2f","numeric",24552,59.26
+"s04q37","4.37. Nombre d'heures par jour  consacré habituellement à cet emploi","%6.2f","numeric",24548,59.25
+"s04q38","4.38. Cotise-t-il à la CNSS ou à la CSP, l'NAMO dans le cadre de cet emploi","%6.2f","haven_labelled",24547,59.24
+"s04q39","4.39. Catégorie socioprofessionnelle dans cet emploi","%6.2f","haven_labelled",24547,59.24
+"s04q40","4.40. Bénéficie de congés de maternité/paternité","%6.2f","haven_labelled",39067,94.29
+"s04q41","4.41. Nombre de jours de congé de maternité/paternité réglementaire","%6.2f","numeric",41139,99.29
+"s04q42","4.42. A un bulletin de salaire","%6.2f","haven_labelled",39067,94.29
+"s04q43","4.43. Montant du salaire pour cet emploi (pour la période de temps considérée)","%6.2f","numeric",39428,95.16
+"s04q43_unite","4.43. Unité","%6.2f","haven_labelled",39476,95.27
+"s04q44","4.44. Bénéficie de primes dans le cadre de cet emploi","%6.2f","haven_labelled",39067,94.29
+"s04q45","4.45. Evaluation des primes (uniquement ceux qui ne sont pas inclus dans le sala","%6.2f","numeric",40825,98.53
+"s04q45_unite","4.45. Unité","%6.2f","haven_labelled",40853,98.6
+"s04q46","4.46. Bénéficie d'autres avantages quelconques ( indemnités de transport …)","%6.2f","haven_labelled",39067,94.29
+"s04q47","4.47. Evaluation de ces avantages ( uniquement ceux qui ne sont pas inclus dans","%6.2f","numeric",41085,99.16
+"s04q47_unite","4.47. Unité","%6.2f","haven_labelled",41100,99.19
+"s04q48","4.48. Reçoit de la  nourriture  dans le cadre de cet emploi","%6.2f","haven_labelled",39067,94.29
+"s04q49","4.49. Evaluation de cette nourritue","%6.2f","numeric",41111,99.22
+"s04q49_unite","4.49. Unité","%6.2f","haven_labelled",41111,99.22
+"s04q50","4.50. Exercice d'un emploi secondaire au cours des 12 derniers mois","%6.2f","haven_labelled",24547,59.24
+"s04q51b","4.51. Code de l'emploi / profession","%6.2f","haven_labelled",37326,90.09
+"s04q51c","4.51. Sous-groupe","%6.2f","haven_labelled",37326,90.09
+"s04q51d","4.51. Code de profession / Metier","%6.2f","haven_labelled",37326,90.09
+"s04q52b","4.52. Code de la branche d'activité","%6.2f","haven_labelled",37326,90.09
+"s04q52c","4.52. Code de branche d'acativité","%6.2f","haven_labelled",37326,90.09
+"s04q52d","4.52. Code d'activité","%6.2f","haven_labelled",37326,90.09
+"s04q53","4.53. Principal employeur dans cet emploi","%6.2f","haven_labelled",37326,90.09
+"s04q54","4.54. Nombre de mois  a exercé cet emploi au cours des 12 derniers mois","%6.2f","numeric",37326,90.09
+"s04q55","4.55. Nombre de jours par mois  consacre  habituellement à cet emploi","%6.2f","numeric",37328,90.09
+"s04q56","4.56. Nombre d'heures par jour  consacre-t-il  habituellement à cet emploi","%6.2f","numeric",37328,90.09
+"s04q57","4.57. Catégorie socioprofessionnelle dans cet emploi","%60.2f","haven_labelled",37326,90.09
+"s04q58","4.58. Revenu pour cet emploi au cours des 12 derniers mois","%6.2f","numeric",41334,99.76
+"s04q58_unite","4.58. Unité","%6.2f","haven_labelled",41339,99.77
+"s04q59","4.59. Bénéficie de primes dans le cadre de cet emploi","%6.2f","haven_labelled",41328,99.74
+"s04q60","4.60. valuation de ces primes ( uniquement celles qui ne sont..)","%6.2f","numeric",41420,99.97
+"s04q60_unite","4.60. Unité","%6.2f","haven_labelled",41421,99.97
+"s04q61","4.61. Bénéficie d'autres avantages quelconques ( indemnités..)","%6.2f","haven_labelled",41328,99.74
+"s04q62","4.62. Evaluation de ces avantages (uniquement ceux qui ne sont pas inclus..)","%6.2f","numeric",41425,99.98
+"s04q62_unite","4.62. Unité","%6.2f","haven_labelled",41426,99.98
+"s04q63","4.63. Recoit de la nourriture dans le cadre de cet emploi","%6.2f","haven_labelled",41328,99.74
+"s04q64","4.64. Evaluation de cette nourriture","%6.2f","numeric",41426,99.98
+"s04q64_unite","4.64. Unité","%6.2f","haven_labelled",41426,99.98
+"s05q00","5.00. Répondant","%10.0g","numeric",18815,45.41
+"s05q01","5.01. A béneficié d'une pension de retraite (civile et militaire)","%6.2f","haven_labelled",18815,45.41
+"s05q02","5.02. Montant annuel de la pension de retraite (civile et miliatire y compris..)","%6.2f","numeric",41264,99.59
+"s05q03","5.03. A bénéficié d'une pension de veuvage (en cas de père de conjoint)","%6.2f","haven_labelled",18815,45.41
+"s05q04","5.04. Montant annuel de la pension de veuvage (en cas de perte du conjoint)","%6.2f","numeric",41335,99.76
+"s05q05","5.05. A bénéficié de pension d'invalidité (en cas d'accident..)","%6.2f","haven_labelled",18815,45.41
+"s05q06","5.06. Montant annuel de la pension d'invalidité (en cas d'accident du travail)","%6.2f","numeric",41422,99.97
+"s05q07","5.07. A bénéficié d'une pension alimentaire","%6.2f","haven_labelled",18815,45.41
+"s05q08","5.08. Montant annuel de la pension alimentaire","%6.2f","numeric",41423,99.97
+"s05q09","5.09. A reçu un revenu provenant de loyers de maison","%6.2f","haven_labelled",18815,45.41
+"s05q10","5.10. Montant annuel du revenu provenant de loyers de maison d'habitation perçu","%6.2f","numeric",40942,98.81
+"s05q11","5.11. A reçu des revenus mobiliers et financiers","%6.2f","haven_labelled",18815,45.41
+"s05q12","5.12. Montant annuel du revenu de mobiliers et financiers","%6.2f","numeric",41289,99.65
+"s05q13","5.13. A reçu un autre revenu (gain de loterie, héritage…)","%6.2f","haven_labelled",18815,45.41
+"s05q14","5.14. Montant annuel d'autres revenus (gain de loterie, héritage, vente de biens","%6.2f","numeric",40037,96.63
+"s06q00","6.00. Répondant","%10.0g","numeric",18815,45.41
+"s06q01__1","6.01. Possède un compte dans une banque classique","%6.2f","haven_labelled",18815,45.41
+"s06q01__2","6.01. Possède un compte à la poste","%6.2f","haven_labelled",18815,45.41
+"s06q01__3","6.01. Possède un compte dans une caisse rurale d'epargne, IMF","%6.2f","haven_labelled",18815,45.41
+"s06q01__4","6.01. Possède un compte Mobile banking","%6.2f","haven_labelled",18815,45.41
+"s06q01__5","6.01. Possède une carte prépayée","%6.2f","haven_labelled",18815,45.41
+"s06q02","6.02. Possède de l'épargne dans ces comptes","%6.2f","haven_labelled",33845,81.68
+"s06q03","6.03. A demandé un crédit à une institution financière","%6.2f","haven_labelled",26747,64.55
+"s06q04","6.04. Pourquoi n'avoir pas demandé de crédit au cours des 12 derniers mois","%6.2f","haven_labelled",27165,65.56
+"s06q04_autre","6.04. Autre. Préciser","%9s","character",0,0
+"s06q05","6.05. A obtenu un crédit au cours des 12 derniers mois","%6.2f","haven_labelled",41016,98.99
+"s06q06","6.06. Raison principale de n'avoir pas obtenu le crédit","%6.2f","haven_labelled",41322,99.73
+"s06q06_autre","6.06. Autre. Préciser","%9s","character",0,0
+"s06q07","6.07. Est membre de d'une tontine ou d'une association d'une association","%6.2f","haven_labelled",27053,65.29
+"s06q08","6.08. A demandé du crédit dans cette association d'entraide","%6.2f","haven_labelled",29833,72
+"s06q09","6.09. A néanmoins bénéficié d'un crédit dans le passé non completement remboursé","%6.2f","haven_labelled",27053,65.29
+"s06q10","6.10. Nombre de crédit en cours, c'est-à-dire non totalement remboursés","%6.2f","numeric",20983,50.64
+"s06q11","6.11. Principale utilisation fait du dernier crédit","%6.2f","haven_labelled",39908,96.32
+"s06q11_autre","6.11. Autre. Préciser","%9s","character",0,0
+"s06q12","6.12. Auprès de qui ce dernier crédit a-t-il été contracté","%6.2f","haven_labelled",39908,96.32
+"s06q12_autre","6.12. Autre. Préciser","%79s","character",0,0
+"s06q13a","6.13. Mois auquel ce dernier crédit a été contracté","%6.2f","haven_labelled",39908,96.32
+"s06q13b","6.13. Année a laquelle ce dernier crédit a été contracté","%6.2f","numeric",39908,96.32
+"s06q14","6.14. Montant nominal de ce dernier crédit (En GNF)","%6.2f","numeric",39908,96.32
+"s06q15","6.15. Périodicité des remboursements de ce dernier crédit","%6.2f","haven_labelled",39908,96.32
+"s06q16","6.16. Nombre d'échéances de remboursement de ce dernier crédit","%6.2f","numeric",39927,96.36
+"s06q17","6.17. Montant nominal devant être remboursé en moyenne à chaque échéance","%6.2f","numeric",39911,96.32
+"s06q18","6.18. Nombre d'échéances déjà remboursées pour ce dernier crédit","%6.2f","numeric",39908,96.32
+"prefecture","Prefecture de residence","%6.2f","haven_labelled",0,0
+"year","Annee enquete","%9.0g","numeric",0,0
+"hhid","Idenfiant menage","%9.0g","numeric",0,0
+"zae","Zone agroecologique","%17.0g","haven_labelled",0,0
+"region","Region residence","%6.2f","haven_labelled",0,0
+"milieu","Milieu residence","%6.2f","haven_labelled",0,0
+"zaemil","group(zae milieu)","%26.0g","haven_labelled",0,0
+"hhweight","Ponderation menage","%9.0g","numeric",0,0
+"hhsize","Taille menage","%6.0f","numeric",0,0
+"eqadu1","Nbr adultes-equiv. FAO","%9.0g","numeric",0,0
+"eqadu2","Nbr adultes-equiv. alt.","%9.0g","numeric",0,0
+"hgender","Genre du CM","%6.2f","haven_labelled",0,0
+"hage","Age du CM","%9.0g","numeric",0,0
+"hmstat","Situation famille du CM","%6.2f","haven_labelled",0,0
+"hreligion","Religion du CM","%6.2f","haven_labelled",0,0
+"hnation","Nationalite du CM","%6.2f","haven_labelled",0,0
+"halfab","Alphabetisation du CM","%9.0g","haven_labelled",0,0
+"heduc","Education du CM","%15.0g","haven_labelled",0,0
+"hdiploma","Diplome du CM","%6.2f","haven_labelled",0,0
+"hhandig","Handicap majeur CM","%9.0g","haven_labelled",0,0
+"hactiv7j","Activite 7 jours du CM","%19.0g","haven_labelled",0,0
+"hactiv12m","Activite 12 mois du CM","%14.0g","haven_labelled",0,0
+"hbranch","Branche activite du CM","%16.0g","haven_labelled",3303,7.97
+"hsectins","Secteur instit. du CM","%6.2f","haven_labelled",3303,7.97
+"hcsp","CSP du CM","%6.2f","haven_labelled",3303,7.97
+"dali","Conso annuelle alim. menage","%9.0g","numeric",0,0
+"dnal","Conso annuelle non alim. menage","%9.0g","numeric",0,0
+"dtot","Conso annuelle totale menage","%9.0g","numeric",0,0
+"pcexp","Indicateur de bien-être","%9.0g","numeric",0,0
+"zref","Seuil pauvrete national","%9.0g","numeric",0,0
+"def_spa","Deflateur spatial","%9.0g","numeric",0,0
+"merge1","Matching result from merge","%23.0g","haven_labelled",0,0
+"codpr","Code produit","%256.0g","haven_labelled",0,0
+"modep","Mode d'acquisition","%15.0g","haven_labelled",0,0
+"dep_logement","Depense annuelle","%9.0g","numeric",0,0
+"merge2","Matching result from merge","%23.0g","haven_labelled",0,0
+"dep_transport_commun","(sum) depan","%9.0g","numeric",0,0
+"_merge","Matching result from merge","%23.0g","haven_labelled",0,0
+"generaliste","","%9.0g","numeric",20659,49.86
+"spécialiste","","%9.0g","numeric",37032,89.38
+"dentiste","","%9.0g","numeric",38295,92.42
+"traditionnel","","%9.0g","numeric",36037,86.97
+"examen","","%9.0g","numeric",29714,71.71
+"medicament","","%9.0g","numeric",12314,29.72
+"hospitalisation","","%9.0g","numeric",39659,95.72
+"autre","","%9.0g","numeric",38325,92.5
+"medicament_dollar","","%9.0g","numeric",12314,29.72
+"generaliste_dollar","","%9.0g","numeric",20659,49.86
+"spécialiste_dollar","","%9.0g","numeric",37032,89.38
+"dentiste_dollar","","%9.0g","numeric",38295,92.42
+"traditionnel_dollar","","%9.0g","numeric",36037,86.97
+"examen_dollar","","%9.0g","numeric",29714,71.71
+"hospitalisation_dollar","","%9.0g","numeric",39659,95.72
+"autre_dollar","","%9.0g","numeric",38325,92.5
+"tot_sante","","%9.0g","numeric",0,0
+"oops_sante","","%9.0g","numeric",0,0
+"tot_edu","","%9.0g","numeric",0,0
+"age_cal","","%9.0g","numeric",0,0
