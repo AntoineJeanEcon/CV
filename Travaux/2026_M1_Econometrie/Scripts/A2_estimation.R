@@ -7,7 +7,6 @@
 # Input    : OOPs.dta
 # Outputs  : figures/diag_ols.png
 #            figures/tableau_comparatif.txt
-#            figures/tableau_comparatif.tex
 # Auteur   : Antoine Jean
 # Date     : 2025-2026
 # =============================================================================
@@ -433,37 +432,6 @@ write.table(tableau_comp,
             sep       = "\t",
             row.names = FALSE,
             quote     = FALSE)
-
-# Sauvegarde LaTeX (fragment, pour usage par C1)
-# NOTE : modelsummary() requiert des objets compatibles ; le Heckman 2-step
-# et le two-part ne s'intègrent pas directement → tableau manuel ci-dessus
-latex_lines <- c(
-    "\\begin{table}[htbp]",
-    "\\centering",
-    "\\caption{Tableau comparatif des quatre modèles}",
-    "\\label{tab:comparatif}",
-    "\\begin{tabular}{lrrrrrc}",
-    "\\hline",
-    "Modèle & N & Log-Lik & AIC & BIC & $\\sigma$ & $\\hat{\\beta}_{pcexp}$ \\\\",
-    "\\hline"
-)
-for (i in seq_len(nrow(tableau_comp))) {
-    r <- tableau_comp[i, ]
-    latex_lines <- c(latex_lines,
-                     paste0(r$Modele, " & ", r$N_obs, " & ",
-                            ifelse(is.na(r$LogLik), "—", r$LogLik), " & ",
-                            ifelse(is.na(r$AIC),    "—", r$AIC),    " & ",
-                            ifelse(is.na(r$BIC),    "—", r$BIC),    " & ",
-                            ifelse(is.na(r$Sigma),  "—", r$Sigma),  " & ",
-                            r$coef_pcexp, " \\\\")  # coef_pcexp déjà formaté en notation scientifique
-    )
-}
-latex_lines <- c(latex_lines,
-                 "\\hline",
-                 "\\end{tabular}",
-                 "\\end{table}"
-)
-writeLines(latex_lines, "figures/tableau_comparatif.tex")
 
 cat("\nTableaux sauvegardés dans figures/tableau_comparatif.txt et .tex\n")
 cat("Graphiques OLS sauvegardés dans figures/diag_ols.png\n")
