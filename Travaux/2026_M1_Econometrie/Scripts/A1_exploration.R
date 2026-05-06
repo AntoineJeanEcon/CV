@@ -12,34 +12,25 @@
 # 0. PACKAGES ET CONFIGURATION
 # -----------------------------------------------------------------------------
 
-library(haven)        # Lecture des fichiers .dta (format Stata)
-library(dplyr)        # Manipulation de données
-library(tidyr)        # Reformatage (pivot_longer, etc.)
-library(ggplot2)      # Graphiques
-library(moments)      # Skewness, kurtosis
-library(corrplot)     # Matrice de corrélation visuelle
-library(car)          # VIF (variance inflation factor)
-library(knitr)        # kable() pour tableaux formatés
-library(scales)       # Formatage des axes dans ggplot2
-library(patchwork)    # Composition de graphiques ggplot2
+library(haven)
+library(dplyr)
+library(tidyr)
+library(ggplot2)
+library(moments)
+library(corrplot)
+library(car)
+library(knitr)
+library(scales)
+library(patchwork)
 
-# Répertoire de travail : adapter si nécessaire
-# setwd("/chemin/vers/le/dossier/")
-
-# Création du dossier figures si inexistant
+# Création du dossier figures
 if (!dir.exists("figures")) dir.create("figures")
 
-# Seed pour reproductibilité (utilisé dans le jitter plot)
+# Seed pour reproductibilité
 set.seed(42)
 
 # Thème ggplot2 sobre pour export LaTeX
 theme_set(theme_bw(base_size = 11))
-
-# Compatibilité dplyr : ce script évite all_of() et one_of() pour être compatible
-# avec les versions antérieures à dplyr 1.0.0. Les sélections de colonnes utilisent
-# l'indexation base R (df[, vars] ou select(vars)) qui fonctionne sur toutes versions.
-# Pour vérifier ta version : packageVersion("dplyr")
-
 
 # =============================================================================
 # 1. CHARGEMENT ET INVENTAIRE DES VARIABLES
@@ -120,22 +111,13 @@ cat("N manquants :", sum(is.na(dta$oops_sante)), "\n\n")
 # -----------------------------------------------------------------------------
 # 1.4 Sélection raisonnée des variables explicatives
 # -----------------------------------------------------------------------------
-# Principes de sélection :
-#   (i)  Pertinence théorique vis-à-vis des déterminants de la dépense de santé
-#        (modèles de demande de soins : Grossman 1972, Andersen 1995)
-#   (ii) Disponibilité effective dans le dataset (vérifiée ci-dessous)
-#   (iii) Faible taux de valeurs manquantes (seuil indicatif : < 20 %)
-#
-# Catégories de déterminants attendus dans un LSMS :
+
+# Catégories de déterminants :
 #   [S] Socio-démographiques : âge, sexe, taille du ménage, statut matrimonial
 #   [E] Économiques          : revenu/consommation du ménage, quintile de richesse
 #   [G] Géographiques        : milieu (urbain/rural), région administrative
 #   [H] Santé                : état de santé déclaré, maladie chronique,
 #                              couverture maladie (assurance)
-#
-# NOTE : les noms ci-dessous sont hypothétiques — ils doivent être
-# confrontés à l'inventaire réel (section 1.2). Adapter la liste
-# `vars_candidates` en fonction des noms effectifs dans le dataset.
 
 vars_candidates <- list(
     
@@ -199,8 +181,8 @@ cat(paste(vars_presentes, collapse = ", "), "\n\n")
 # =============================================================================
 
 y <- dta$oops_sante
-y_pos <- y[!is.na(y) & y > 0]   # Sous-échantillon des dépenses strictement positives
-y_all <- y[!is.na(y)]            # Toutes les observations non manquantes
+y_pos <- y[!is.na(y) & y > 0] # Sous-échantillon des dépenses strictement positives
+y_all <- y[!is.na(y)] # Toutes les observations non manquantes
 
 
 # -----------------------------------------------------------------------------
