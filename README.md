@@ -15,9 +15,10 @@ En dehors de ça : je suis tuteur familial de mon frère en situation de handica
 ## Ce que vous trouverez ici
 
 ```
-publications/     → travaux publiés ou soumis
-travaux/          → projets académiques et professionnels, avec code
-index.html        → mon CV en ligne (FR / EN / ES)
+publications/           → travaux publiés ou soumis
+travaux/                → projets académiques et professionnels, avec code
+CV_JEAN_Antoine.pdf     → CV PDF
+index.html              → mon CV en ligne (FR / EN / ES)
 ```
 
 Mon CV en ligne : https://antoinejeanecon.github.io/CV/
