@@ -5,7 +5,7 @@
 # Input    : World Bank WDI (téléchargement via package WDI, indicateurs
 #            NY.GDP.PCAP.KD, NE.GDI.FTOT.ZS, SP.POP.GROW, SE.SEC.ENRR,
 #            NE.TRD.GNFS.ZS), période 1990–2022, tous pays disponibles.
-# Outputs  : panel_data.rds — data.frame standard (55 pays × 33 ans,
+# Outputs  : panel_data.rds : data.frame standard (55 pays × 33 ans,
 #            N = 1815 obs, panel cylindré).
 # Auteur   : Antoine Jean
 # Date     : 2025-2026
@@ -35,17 +35,17 @@ indicateurs <- c(
     # Variable dépendante (taux de croissance) et condition initiale (ln Y_0)
     gdp_pc        = "NY.GDP.PCAP.KD",
     
-    # FBCF / PIB (% du PIB) — proxy s_k (accumulation de capital physique)
+    # FBCF / PIB (% du PIB) : proxy s_k (accumulation de capital physique)
     inv_rate      = "NE.GDI.FTOT.ZS",
     
-    # Taux de croissance démographique (% annuel) — n dans MRW
+    # Taux de croissance démographique (% annuel) : n dans MRW
     pop_growth    = "SP.POP.GROW",
     
-    # Taux de scolarisation brut dans le secondaire (%) — proxy s_h
+    # Taux de scolarisation brut dans le secondaire (%) : proxy s_h
     # Limite : taux brut peut dépasser 100%
     school        = "SE.SEC.ENRR",
     
-    # Ouverture commerciale = (X + M) / PIB (%) — variable de contrôle
+    # Ouverture commerciale = (X + M) / PIB (%) : variable de contrôle
     openness      = "NE.TRD.GNFS.ZS"
 )
 
@@ -84,7 +84,7 @@ df <- raw %>%
 cat("Après suppression des agrégats :", length(unique(df$iso2c)), "pays\n\n")
 
 # 3b. Sélection des colonnes utiles
-# WDI() utilise les noms du vecteur `indicateurs` comme noms de colonnes —
+# WDI() utilise les noms du vecteur `indicateurs` comme noms de colonnes :
 # pas de rename() nécessaire.
 df <- df %>%
     select(iso3c, country, year, region, income,
@@ -168,10 +168,10 @@ df_clean <- df_clean %>%
         # Première observation par pays : NA par construction
         growth_gdp  = ln_gdp_pc - dplyr::lag(ln_gdp_pc, n = 1, order_by = year),
         
-        # Log du taux d'investissement — guard contre log(0) ou valeurs négatives
+        # Log du taux d'investissement : guard contre log(0) ou valeurs négatives
         ln_inv      = log(pmax(inv_rate / 100, 1e-6)),
         
-        # Log(n + g + delta) — convention MRW : g + delta = 0.05
+        # Log(n + g + delta) : convention MRW : g + delta = 0.05
         ln_ngd      = log(pmax(pop_growth / 100 + 0.05, 1e-6)),
         
         # Log du taux de scolarisation (proxy s_h)
@@ -275,7 +275,7 @@ cor_mat <- cor_vars
 diag(cor_mat) <- NA
 high_cor <- which(abs(cor_mat) > 0.7, arr.ind = TRUE)
 if (nrow(high_cor) > 0) {
-    cat("AVERTISSEMENT — Corrélations > 0.7 :\n")
+    cat("AVERTISSEMENT : Corrélations > 0.7 :\n")
     for (i in seq_len(nrow(high_cor))) {
         r <- high_cor[i, 1]; c_col <- high_cor[i, 2]
         if (r < c_col) {
@@ -291,7 +291,7 @@ if (nrow(high_cor) > 0) {
 # -----------------------------------------------------------------------------
 # 9. Résumé final
 # -----------------------------------------------------------------------------
-cat("=== RÉSUMÉ — Dataset final ===\n")
+cat("=== RÉSUMÉ : Dataset final ===\n")
 cat("Pays (N)        :", length(unique(df_clean$iso3c)), "\n")
 cat("Périodes (T)    :", length(unique(df_clean$year)), "\n")
 cat("Observations NT :", nrow(df_clean), "\n")
@@ -310,7 +310,7 @@ cat("FD et GMM-diff perdent la première observation par pays (t=1990).\n\n")
 # -----------------------------------------------------------------------------
 # 10. Sauvegarde
 # -----------------------------------------------------------------------------
-# Sauvegarde en data.frame standard — pdata.frame déclaré dans B2_estimation.R
+# Sauvegarde en data.frame standard : pdata.frame déclaré dans B2_estimation.R
 panel_data <- df_clean
 
 saveRDS(panel_data, "panel_data.rds")
