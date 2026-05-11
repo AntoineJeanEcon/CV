@@ -13,13 +13,13 @@
 library(plm)
 library(lmtest)
 
-cat("=== GMM v4 — Instruments lag 3:4, collapse=TRUE ===\n\n")
+cat("=== GMM v4 : Instruments lag 3:4, collapse=TRUE ===\n\n")
 
 # =============================================================================
-# 2.5 — GMM-diff Arellano-Bond
+# 2.5 : GMM-diff Arellano-Bond
 # =============================================================================
 
-cat("=== 2.5 GMM-diff — Arellano-Bond (lag 3:4) ===\n")
+cat("=== 2.5 GMM-diff : Arellano-Bond (lag 3:4) ===\n")
 
 # --- BASE ---
 gmm_diff_base <- tryCatch({
@@ -68,10 +68,10 @@ if (!is.null(gmm_diff_extended)) {
 }
 
 # =============================================================================
-# 2.6 — SYS-GMM Blundell-Bond
+# 2.6 : SYS-GMM Blundell-Bond
 # =============================================================================
 
-cat("\n\n=== 2.6 SYS-GMM — Blundell-Bond (lag 3:4) ===\n")
+cat("\n\n=== 2.6 SYS-GMM : Blundell-Bond (lag 3:4) ===\n")
 
 # --- BASE ---
 sysgmm_base <- tryCatch({
@@ -120,7 +120,7 @@ if (!is.null(sysgmm_extended)) {
 }
 
 # =============================================================================
-# TABLEAU COMPARATIF COMPLET — tous estimateurs
+# TABLEAU COMPARATIF COMPLET : tous estimateurs
 # =============================================================================
 # À exécuter avec les objets pols_base, re_base, fe_base, fd_base en mémoire
 
