@@ -27,34 +27,25 @@ library(tidyr)
 # -----------------------------------------------------------------------------
 # 1. Définition des indicateurs WDI
 # -----------------------------------------------------------------------------
-# Chaque indicateur est justifié par sa contrepartie théorique dans le modèle
-# de Solow augmenté (MRW 1992) : Y/L = f(s_k, s_h, n+g+delta, Y0/L0)
+# Contreparties théoriques dans le modèle de Solow augmenté (MRW 1992) :
+# Y/L = f(s_k, s_h, n+g+delta, Y0/L0)
 
 indicateurs <- c(
     # PIB réel par habitant (USD 2015 constants)
-    # → Variable dépendante (taux de croissance) ET condition initiale (ln Y_0)
-    # Justification : convergence conditionnelle — pays pauvres croissent plus
-    # vite toutes choses égales par ailleurs (β-convergence)
+    # Variable dépendante (taux de croissance) et condition initiale (ln Y_0)
     gdp_pc        = "NY.GDP.PCAP.KD",
     
-    # Taux d'investissement physique = FBCF / PIB (% du PIB)
-    # Justification : s_k dans MRW — accumulation de capital physique,
-    # corrélée positivement au niveau d'état stationnaire
+    # FBCF / PIB (% du PIB) — proxy s_k (accumulation de capital physique)
     inv_rate      = "NE.GDI.FTOT.ZS",
     
-    # Taux de croissance démographique (% annuel)
-    # Justification : n dans MRW — dilue le capital par tête,
-    # corrélée négativement au niveau d'état stationnaire (n + g + δ)
+    # Taux de croissance démographique (% annuel) — n dans MRW
     pop_growth    = "SP.POP.GROW",
     
-    # Taux de scolarisation brut dans le secondaire (%)
-    # Justification : proxy de s_h (accumulation de capital humain) dans MRW
-    # Limite connue : taux brut peut dépasser 100%, variable imparfaite
+    # Taux de scolarisation brut dans le secondaire (%) — proxy s_h
+    # Limite : taux brut peut dépasser 100%
     school        = "SE.SEC.ENRR",
     
-    # Ouverture commerciale = (X + M) / PIB (% du PIB)
-    # Justification : variable de contrôle fréquente dans les régressions
-    # de croissance (Sachs & Warner 1995) — optionnelle selon disponibilité
+    # Ouverture commerciale = (X + M) / PIB (%) — variable de contrôle
     openness      = "NE.TRD.GNFS.ZS"
 )
 
@@ -65,9 +56,8 @@ cat("Période : 1990–2022\n\n")
 # -----------------------------------------------------------------------------
 # 2. Téléchargement
 # -----------------------------------------------------------------------------
-# WDI() retourne un data.frame long avec colonnes : iso2c, country, year, ...
 raw <- WDI(
-    country   = "all",        # tous les pays disponibles
+    country   = "all",
     indicator = indicateurs,
     start     = 1990,
     end       = 2022,
@@ -81,23 +71,21 @@ cat("Nombre de pays bruts :", length(unique(raw$iso2c)), "\n\n")
 # 3. Nettoyage préliminaire
 # -----------------------------------------------------------------------------
 
-# 3a. Supprimer les agrégats régionaux/mondiaux de la WB
-# (ils n'ont pas de code iso2c standard à 2 lettres — ex: "1W", "Z4", "ZJ")
-# On garde uniquement les entités dont le code iso3c est renseigné et
-# correspond à un vrai pays (3 lettres alphabétiques)
+# 3a. Suppression des agrégats régionaux/mondiaux de la WB
+# (codes iso2c non standard : "1W", "Z4", "ZJ", etc.)
+# Critère : code iso3c renseigné et conforme ISO 3166-1 alpha-3
 df <- raw %>%
     filter(
         !is.na(iso3c),
-        grepl("^[A-Z]{3}$", iso3c),   # codes ISO 3166-1 alpha-3 uniquement
-        region != "Aggregates"          # sécurité supplémentaire via colonne extra
+        grepl("^[A-Z]{3}$", iso3c),
+        region != "Aggregates"
     )
 
 cat("Après suppression des agrégats :", length(unique(df$iso2c)), "pays\n\n")
 
 # 3b. Sélection des colonnes utiles
-# Note : WDI() utilise les NOMS du vecteur nommé `indicateurs` comme noms de
-# colonnes (pas les codes WDI). Les colonnes s'appellent donc déjà gdp_pc,
-# inv_rate, etc. — aucun rename() nécessaire.
+# WDI() utilise les noms du vecteur `indicateurs` comme noms de colonnes —
+# pas de rename() nécessaire.
 df <- df %>%
     select(iso3c, country, year, region, income,
            gdp_pc, inv_rate, pop_growth, school, openness)
@@ -105,15 +93,15 @@ df <- df %>%
 # -----------------------------------------------------------------------------
 # 4. Diagnostic des données manquantes par pays
 # -----------------------------------------------------------------------------
-# Variables "clés" au sens de MRW : gdp_pc, inv_rate, pop_growth, school
-# L'ouverture (openness) est optionnelle — seuil de 30% appliqué séparément
+# Seuil d'exclusion : > 30% de manquants sur au moins une variable clé MRW
+# openness traité séparément (variable optionnelle)
 
 vars_cles <- c("gdp_pc", "inv_rate", "pop_growth", "school")
 
 missing_by_country <- df %>%
     group_by(iso3c, country) %>%
     summarise(
-        n_obs      = n(),
+        n_obs           = n(),
         pct_miss_gdp    = mean(is.na(gdp_pc))    * 100,
         pct_miss_inv    = mean(is.na(inv_rate))   * 100,
         pct_miss_pop    = mean(is.na(pop_growth)) * 100,
@@ -125,7 +113,6 @@ missing_by_country <- df %>%
                              pct_miss_pop, pct_miss_school)
     )
 
-# Pays à exclure (> 30% de manquants sur au moins une variable clé)
 pays_exclus <- missing_by_country %>%
     filter(max_miss_cles > 30)
 
@@ -140,7 +127,6 @@ if (nrow(pays_exclus) > 0) {
 }
 cat("\n")
 
-# Pays retenus
 pays_retenus <- missing_by_country %>%
     filter(max_miss_cles <= 30) %>%
     pull(iso3c)
@@ -155,21 +141,18 @@ cat("Observations restantes      :", nrow(df_clean), "\n\n")
 # 5. Construction des variables transformées
 # -----------------------------------------------------------------------------
 
-# IMPORTANT : s'assurer que df_clean est un data.frame standard (pas pdata.frame)
-# avant d'appeler dplyr::lag(). Si l'objet est un pdata.frame, plm surcharge lag()
-# et le calcul des differences est silencieusement fausse (retourne 0 au lieu de NA
-# sur la premiere observation de chaque groupe).
+# df_clean maintenu en data.frame standard avant les mutate dplyr.
+# Si l'objet est un pdata.frame, plm surcharge lag() et fausse silencieusement
+# le calcul des différences (retourne 0 au lieu de NA sur la première obs).
 df_clean <- as.data.frame(df_clean) %>%
     arrange(iso3c, year)
 
-# Etape 5a : calculer ln_gdp_pc dans un premier mutate, PUIS calculer
-# growth_gdp dans un second mutate. dplyr ne peut pas utiliser via lag() une
-# colonne creee dans le meme mutate() de facon fiable dans tous les contextes.
+# Étape 5a : ln_gdp_pc dans un premier mutate, growth_gdp dans un second.
+# dplyr::lag() sur une colonne créée dans le même mutate() peut être instable
+# selon le contexte d'exécution.
 df_clean <- df_clean %>%
     group_by(iso3c) %>%
     mutate(
-        # 5a. Log du PIB/hab
-        # Justification : la theorie MRW predit une relation log-lineaire
         ln_gdp_pc = log(gdp_pc)
     ) %>%
     ungroup()
@@ -177,34 +160,28 @@ df_clean <- df_clean %>%
 df_clean <- df_clean %>%
     group_by(iso3c) %>%
     mutate(
-        # 5b. Condition initiale : log du PIB/hab a la premiere annee disponible
-        # pour chaque pays (proxy de Y_0 dans la regression de convergence)
+        # Condition initiale : log PIB/hab à la première année disponible par pays
         ln_gdp_init = first(na.omit(ln_gdp_pc)),
         
-        # 5c. Taux de croissance annuel du PIB/hab (difference des logs)
-        # g_t = ln(Y_t / L_t) - ln(Y_{t-1} / L_{t-1})
-        # dplyr::lag() explicite + order_by = year pour eviter toute ambiguite
-        # La premiere observation de chaque pays sera NA par construction.
+        # Taux de croissance annuel : g_t = ln(Y_t/L_t) - ln(Y_{t-1}/L_{t-1})
+        # order_by = year explicite pour éviter toute ambiguïté d'ordre
+        # Première observation par pays : NA par construction
         growth_gdp  = ln_gdp_pc - dplyr::lag(ln_gdp_pc, n = 1, order_by = year),
         
-        # 5d. Log du taux d'investissement
-        # Justification : dans MRW, ln(s_k) entre dans la relation d'etat stationnaire
-        # Attention : quelques valeurs negatives ou nulles possibles -> verifier
-        ln_inv      = log(pmax(inv_rate / 100, 1e-6)),  # guard contre log(0)
+        # Log du taux d'investissement — guard contre log(0) ou valeurs négatives
+        ln_inv      = log(pmax(inv_rate / 100, 1e-6)),
         
-        # 5e. Log(n + g + delta) - convention standard MRW
-        # g + delta suppose = 0.05 (g = progres technique, delta = depreciation)
-        # n = taux de croissance demographique (deja en %)
+        # Log(n + g + delta) — convention MRW : g + delta = 0.05
         ln_ngd      = log(pmax(pop_growth / 100 + 0.05, 1e-6)),
         
-        # 5f. Log du taux de scolarisation (proxy s_h)
+        # Log du taux de scolarisation (proxy s_h)
         ln_school   = log(pmax(school / 100, 1e-6))
         
     ) %>%
     ungroup()
 
-# Verification immediate : growth_gdp ne doit PAS etre constante a zero
-cat("--- Verification growth_gdp (ne doit pas etre 0 partout) ---\n")
+# Vérification : growth_gdp ne doit pas être identiquement nul
+cat("--- Vérification growth_gdp ---\n")
 print(summary(df_clean$growth_gdp))
 cat("SD :", sd(df_clean$growth_gdp, na.rm = TRUE), "\n")
 cat("Exemple ALB :\n")
@@ -214,8 +191,7 @@ print(df_clean %>%
           head(5))
 cat("\n")
 
-
-# Avertissement sur les valeurs problématiques d'investissement
+# Signalement des valeurs problématiques d'investissement
 n_inv_neg <- sum(df_clean$inv_rate <= 0, na.rm = TRUE)
 if (n_inv_neg > 0) {
     cat("AVERTISSEMENT :", n_inv_neg,
@@ -230,8 +206,6 @@ if (n_inv_neg > 0) {
 # -----------------------------------------------------------------------------
 # 6. Déclaration du panel avec plm
 # -----------------------------------------------------------------------------
-# Index : iso3c (individu), year (temps)
-
 panel_pdata <- pdata.frame(df_clean, index = c("iso3c", "year"))
 
 cat("=== Diagnostic du panel (pdim) ===\n")
@@ -241,16 +215,13 @@ cat("\n")
 
 cat("Panel équilibré :", dim_panel$balanced, "\n")
 if (!dim_panel$balanced) {
-    cat("→ Panel non cylindré. L'agent B2 devra en tenir compte",
-        "notamment pour les estimateurs FD et GMM.\n")
+    cat("→ Panel non cylindré. À prendre en compte pour FD et GMM.\n")
 }
 cat("\n")
 
 # -----------------------------------------------------------------------------
 # 7. Statistiques descriptives within / between
 # -----------------------------------------------------------------------------
-# La décomposition within/between est centrale pour justifier le choix FE vs RE
-
 cat("=== Variation within / between (variables clés) ===\n")
 vars_desc <- c("growth_gdp", "ln_gdp_pc", "ln_inv", "ln_ngd",
                "ln_school", "openness")
@@ -265,7 +236,6 @@ for (v in vars_desc) {
     }
 }
 
-# Tableau de statistiques descriptives classiques
 cat("\n=== Statistiques descriptives globales ===\n")
 desc_vars <- df_clean %>%
     select(growth_gdp, ln_gdp_pc, ln_gdp_init,
@@ -280,7 +250,6 @@ desc_vars <- df_clean %>%
                      ),
                      .names = "{.col}__{.fn}"))
 
-# Reshape pour lisibilité
 desc_long <- desc_vars %>%
     pivot_longer(everything(),
                  names_to  = c("variable", "stat"),
@@ -306,7 +275,7 @@ cor_mat <- cor_vars
 diag(cor_mat) <- NA
 high_cor <- which(abs(cor_mat) > 0.7, arr.ind = TRUE)
 if (nrow(high_cor) > 0) {
-    cat("AVERTISSEMENT — Corrélations > 0.7 (risque de multicolinéarité) :\n")
+    cat("AVERTISSEMENT — Corrélations > 0.7 :\n")
     for (i in seq_len(nrow(high_cor))) {
         r <- high_cor[i, 1]; c_col <- high_cor[i, 2]
         if (r < c_col) {
@@ -320,33 +289,30 @@ if (nrow(high_cor) > 0) {
 }
 
 # -----------------------------------------------------------------------------
-# 9. Résumé final avant transmission à B2
+# 9. Résumé final
 # -----------------------------------------------------------------------------
-cat("=== RÉSUMÉ — Dataset transmis à B2 ===\n")
+cat("=== RÉSUMÉ — Dataset final ===\n")
 cat("Pays (N)        :", length(unique(df_clean$iso3c)), "\n")
 cat("Périodes (T)    :", length(unique(df_clean$year)), "\n")
 cat("Observations NT :", nrow(df_clean), "\n")
 cat("Variables disponibles :\n")
 cat("  - growth_gdp   : taux de croissance annuel ln(Y_t/L_t) - ln(Y_{t-1}/L_{t-1})\n")
 cat("  - ln_gdp_pc    : log PIB réel/hab (niveau)\n")
-cat("  - ln_gdp_init  : log PIB réel/hab à t=0 (condition initiale, invariant)\n")
+cat("  - ln_gdp_init  : log PIB réel/hab à t=0 (condition initiale, time-invariant)\n")
 cat("  - ln_inv       : log taux d'investissement (proxy s_k)\n")
 cat("  - ln_ngd       : log(n + 0.05) (proxy n+g+delta)\n")
 cat("  - ln_school    : log taux scolarisation secondaire (proxy s_h)\n")
 cat("  - openness     : ouverture commerciale (optionnelle, manquants possibles)\n")
-cat("  - region, income : variables de groupe (pour hétérogénéité)\n")
+cat("  - region, income : variables de groupe\n")
 cat("\nPanel équilibré :", pdim(panel_pdata)$balanced, "\n")
-cat("\nNote B2 : le panel est CYLINDRE (balanced).",
-    "N =", length(unique(df_clean$iso3c)), "pays,",
-    "T =", length(unique(df_clean$year)), "periodes.",
-    "FD et GMM-diff perdront la premiere observation de chaque pays (t=1990).",
-    "SYS-GMM necessite la verification des instruments.\n\n")
+cat("FD et GMM-diff perdent la première observation par pays (t=1990).\n\n")
 
 # -----------------------------------------------------------------------------
 # 10. Sauvegarde
 # -----------------------------------------------------------------------------
-panel_data <- df_clean   # data.frame standard — B2 re-déclarera avec pdata.frame
+# Sauvegarde en data.frame standard — pdata.frame déclaré dans B2_estimation.R
+panel_data <- df_clean
 
 saveRDS(panel_data, "panel_data.rds")
 cat("=== Fichier panel_data.rds sauvegardé ===\n")
-cat("Transmission à B2 prête.\n")
+cat("\n=== FIN DU SCRIPT B1 ===\n")
