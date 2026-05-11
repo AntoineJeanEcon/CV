@@ -121,40 +121,40 @@ cat("N manquants :", sum(is.na(dta$oops_sante)), "\n\n")
 
 vars_candidates <- list(
     
-    # [S] Socio-démographiques — caractéristiques du chef de ménage (CM)
-    # hage    : âge du CM — déterminant central de la demande de soins (Grossman 1972)
-    # hgender : genre du CM — proxy des inégalités de genre dans l'accès aux soins
-    # hhsize  : taille du ménage — économies d'échelle et dilution du budget santé
-    # hmstat  : situation matrimoniale du CM — structure de soutien social
-    # heduc   : niveau d'éducation du CM — proxy de connaissance sanitaire et de
+    # [S] Socio-démographiques : caractéristiques du chef de ménage (CM)
+    # hage    : âge du CM : déterminant central de la demande de soins (Grossman 1972)
+    # hgender : genre du CM : proxy des inégalités de genre dans l'accès aux soins
+    # hhsize  : taille du ménage : économies d'échelle et dilution du budget santé
+    # hmstat  : situation matrimoniale du CM : structure de soutien social
+    # heduc   : niveau d'éducation du CM : proxy de connaissance sanitaire et de
     #           revenu permanent (Grossman 1972 : l'éducation accroît l'efficacité
     #           de la production de santé)
-    # halfab  : alphabétisation du CM — complément à heduc, taux de manquants souvent plus faible
+    # halfab  : alphabétisation du CM : complément à heduc, taux de manquants souvent plus faible
     sociodem = c("hage", "hgender", "hhsize", "hmstat", "heduc", "halfab"),
     
     # [E] Économiques
-    # pcexp : dépense per capita (indicateur de bien-être) — proxy standard du revenu
+    # pcexp : dépense per capita (indicateur de bien-être) : proxy standard du revenu
     #         permanent dans les LSMS ; préféré au revenu déclaré (sous-déclaration)
-    # dtot  : consommation annuelle totale du ménage — alternative à pcexp en niveaux ménage
-    # dnal  : consommation non-alimentaire — proxy de la capacité à payer hors alimentation
+    # dtot  : consommation annuelle totale du ménage : alternative à pcexp en niveaux ménage
+    # dnal  : consommation non-alimentaire : proxy de la capacité à payer hors alimentation
     economique = c("pcexp", "dtot", "dnal"),
     
     # [G] Géographiques
-    # milieu     : urbain/rural — différentiel d'offre de soins et de prix
-    # region     : région administrative (8 modalités) — hétérogénéité géographique
+    # milieu     : urbain/rural : différentiel d'offre de soins et de prix
+    # region     : région administrative (8 modalités) : hétérogénéité géographique
     # prefecture : granularité infra-régionale si la région est trop agrégée
     geographique = c("milieu", "region", "prefecture"),
     
     # [H] Santé et couverture
-    # s03q01 : problème de santé au cours des 30 derniers jours — variable de besoin
+    # s03q01 : problème de santé au cours des 30 derniers jours : variable de besoin
     #          (need factor, Andersen 1995) ; déterminant de la participation aux soins
-    # s03q05 : a consulté un service de santé — variable de recours effectif ;
+    # s03q05 : a consulté un service de santé : variable de recours effectif ;
     #          candidat naturel à l'équation de sélection dans le modèle de Heckman
-    # s03q32 : couverture par une assurance maladie — réduit le prix effectif des soins ;
+    # s03q32 : couverture par une assurance maladie : réduit le prix effectif des soins ;
     #          effet sur oops ambigu (substitution vs complémentarité)
-    # s03q19 : problème de santé au cours des 12 derniers mois — capte la morbidité
+    # s03q19 : problème de santé au cours des 12 derniers mois : capte la morbidité
     #          sur un horizon plus long, approximation de la chronicité
-    # hhandig : handicap majeur du CM — besoin de soins structurel
+    # hhandig : handicap majeur du CM : besoin de soins structurel
     sante = c("s03q01", "s03q05", "s03q32", "s03q19", "hhandig")
 )
 
@@ -164,7 +164,7 @@ for (cat_name in names(vars_candidates)) {
     cat("\nCatégorie :", toupper(cat_name), "\n")
     for (v in vars_candidates[[cat_name]]) {
         present <- v %in% names(dta)
-        cat(sprintf("  %-30s %s\n", v, ifelse(present, "[OK]", "[ABSENT — à corriger]")))
+        cat(sprintf("  %-30s %s\n", v, ifelse(present, "[OK]", "[ABSENT : à corriger]")))
     }
 }
 
@@ -213,7 +213,7 @@ cat("=== STATISTIQUES DESCRIPTIVES DE oops_sante ===\n")
 print(kable(stats_y, row.names = FALSE, format = "pipe"))
 cat("\n")
 
-# Part des zéros — valeur clé pour le choix du modèle
+# Part des zéros : valeur clé pour le choix du modèle
 pct_zeros <- mean(y_all == 0) * 100
 cat(sprintf("Part des zéros : %.2f%%\n", pct_zeros))
 cat("→ Implication pour la modélisation : voir section commentaires.\n\n")
@@ -314,7 +314,7 @@ cat("    mais la forte asymétrie et les zéros excessifs motivent les alternati
 # 3.1 Statistiques descriptives standards
 # -----------------------------------------------------------------------------
 
-cat("=== STATISTIQUES DESCRIPTIVES — VARIABLES EXPLICATIVES ===\n\n")
+cat("=== STATISTIQUES DESCRIPTIVES : VARIABLES EXPLICATIVES ===\n\n")
 
 # Distinction variables continues vs catégorielles
 # Les variables haven_labelled avec peu de modalités sont traitées comme catégorielles
@@ -350,18 +350,18 @@ if (length(vars_continues) > 0) {
         )
     }))
     
-    cat("--- Statistiques descriptives — Variables continues ---\n")
+    cat("--- Statistiques descriptives : Variables continues ---\n")
     print(kable(stats_continues, row.names = FALSE, format = "pipe"))
     cat("\n")
 }
 
 
 # -----------------------------------------------------------------------------
-# 3.2 Tableaux de fréquences — variables catégorielles
+# 3.2 Tableaux de fréquences : variables catégorielles
 # -----------------------------------------------------------------------------
 
 if (length(vars_categorielles) > 0) {
-    cat("--- Tableaux de fréquences — Variables catégorielles ---\n\n")
+    cat("--- Tableaux de fréquences : Variables catégorielles ---\n\n")
     for (v in vars_categorielles) {
         x <- dta[[v]]
         # Conversion en factor pour tabulation
@@ -425,7 +425,7 @@ if (length(vars_continues) >= 2) {
 # un diagnostic purement descriptif de la structure des régresseurs.
 
 if (length(vars_continues) >= 2) {
-    cat("=== VIF — DIAGNOSTIC DE MULTICOLINÉARITÉ ===\n")
+    cat("=== VIF : DIAGNOSTIC DE MULTICOLINÉARITÉ ===\n")
     
     df_vif <- dta %>%
         .[, c('oops_sante', vars_continues)] %>%
@@ -468,7 +468,7 @@ if (length(vars_continues) >= 2) {
 # 4.1 Méthode IQR
 # -----------------------------------------------------------------------------
 
-cat("=== DÉTECTION DES OUTLIERS — MÉTHODE IQR ===\n")
+cat("=== DÉTECTION DES OUTLIERS : MÉTHODE IQR ===\n")
 
 q1  <- quantile(y_all, 0.25, na.rm = TRUE)
 q3  <- quantile(y_all, 0.75, na.rm = TRUE)
@@ -492,7 +492,7 @@ cat(sprintf("N outliers  : %d (%.2f%%)\n\n", n_outliers_iqr, pct_outliers_iqr))
 # 4.2 Méthode z-score
 # -----------------------------------------------------------------------------
 
-cat("=== DÉTECTION DES OUTLIERS — MÉTHODE Z-SCORE ===\n")
+cat("=== DÉTECTION DES OUTLIERS : MÉTHODE Z-SCORE ===\n")
 # Seuil standard : |z| > 3
 
 z_scores <- (y_all - mean(y_all, na.rm = TRUE)) / sd(y_all, na.rm = TRUE)
@@ -518,7 +518,7 @@ p_boxplot <- ggplot(df_box, aes(x = "", y = oops_sante)) +
                 width = 0.1, alpha = 0.5, size = 1) +
     scale_y_continuous(labels = comma) +
     labs(
-        title = "Boxplot de oops\\_sante — outliers IQR en rouge",
+        title = "Boxplot de oops\\_sante : outliers IQR en rouge",
         x = "",
         y = "Dépense de santé out-of-pocket (GNF)"
     )
@@ -532,7 +532,7 @@ cat("Figure sauvegardée : figures/boxplot_oops_outliers.png\n\n")
 # 4.4 Recommandations sur le traitement des outliers
 # -----------------------------------------------------------------------------
 
-cat("=== RECOMMANDATIONS — TRAITEMENT DES VALEURS ABERRANTES ===\n")
+cat("=== RECOMMANDATIONS : TRAITEMENT DES VALEURS ABERRANTES ===\n")
 
 # Rapport asymétrie post-log
 skew_brut <- skewness(y_all)
@@ -559,15 +559,15 @@ cat("(valeur de référence si winsorisation retenue par l'agent A2)\n\n")
 
 
 # =============================================================================
-# 5. EXPORT — RÉCAPITULATIF DES FICHIERS PRODUITS
+# 5. EXPORT : RÉCAPITULATIF DES FICHIERS PRODUITS
 # =============================================================================
 
 cat("=== FICHIERS PRODUITS PAR CE SCRIPT ===\n")
-cat("figures/inventaire_variables.csv    — inventaire complet des variables\n")
-cat("figures/hist_oops_global.png        — histogramme global de oops_sante\n")
-cat("figures/hist_oops_positif.png       — histogramme conditionnel (>0)\n")
-cat("figures/hist_log_oops_positif.png   — histogramme de log(oops_sante)|>0\n")
-cat("figures/matrice_correlation.png     — matrice de corrélation Pearson\n")
-cat("figures/boxplot_oops_outliers.png   — boxplot avec outliers IQR identifiés\n\n")
+cat("figures/inventaire_variables.csv    : inventaire complet des variables\n")
+cat("figures/hist_oops_global.png        : histogramme global de oops_sante\n")
+cat("figures/hist_oops_positif.png       : histogramme conditionnel (>0)\n")
+cat("figures/hist_log_oops_positif.png   : histogramme de log(oops_sante)|>0\n")
+cat("figures/matrice_correlation.png     : matrice de corrélation Pearson\n")
+cat("figures/boxplot_oops_outliers.png   : boxplot avec outliers IQR identifiés\n\n")
 
 cat("--- Fin du script exploration_A1.R ---\n")
