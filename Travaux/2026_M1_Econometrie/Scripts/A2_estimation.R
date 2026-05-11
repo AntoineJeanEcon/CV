@@ -103,9 +103,9 @@ png("figures/diag_ols.png", width = 1200, height = 600)
 par(mfrow = c(1, 2))
 plot(mod_ols$fitted.values, mod_ols$residuals,
      xlab = "Valeurs ajustées", ylab = "Résidus",
-     main = "OLS — Résidus vs Fitted", pch = 20, col = "steelblue")
+     main = "OLS : Résidus vs Fitted", pch = 20, col = "steelblue")
 abline(h = 0, lty = 2, col = "red")
-qqnorm(mod_ols$residuals, main = "OLS — QQ-plot des résidus", pch = 20)
+qqnorm(mod_ols$residuals, main = "OLS : QQ-plot des résidus", pch = 20)
 qqline(mod_ols$residuals, col = "red")
 dev.off()
 
@@ -137,7 +137,7 @@ cat("=============================================================\n")
 # Censure à gauche en zéro (left = 0)
 mod_tobit <- tobit(formule_base, left = 0, data = data_complete)
 
-# --- Effets marginaux — calcul analytique ------------------------------------
+# --- Effets marginaux : calcul analytique ------------------------------------
 # Formule du modèle Tobit type I :
 #   E[y|y>0,x] = xβ + σ·λ(xβ/σ)      avec λ = φ/Φ (ratio de Mills inverse)
 #   E[y|x]     = Φ(xβ/σ)·E[y|y>0,x]
@@ -192,7 +192,7 @@ cat("=============================================================\n")
 # --- Variable d'exclusion ---
 # s03q05 (recours effectif aux soins) : affecte la probabilité de participer
 # mais est supposée sans effet sur le montant conditionnel à la participation.
-# Hypothèse de travail — validité à discuter.
+# Hypothèse de travail : validité à discuter.
 
 # prefecture exclue des équations Heckman et Two-Part :
 # les préfectures 21, 34, 45, 55, 65, 73, 86 sont parfaitement colinéaires
@@ -216,7 +216,7 @@ formule_niveau <- oops_sante ~ hage + hhsize + pcexp + dnal +
 
 # sampleSelection::selection() échoue sur ce dataset (matrice jointe singulière,
 # conditionnement ~8e-20, invariant à method="2step" et "ml").
-# Implémentation manuelle des deux étapes — résultat identique.
+# Implémentation manuelle des deux étapes : résultat identique.
 
 # --- Étape 1 : Probit sur la participation ---
 mod_heckman_step1 <- glm(formule_selection,
