@@ -2,8 +2,7 @@
 # Fichier  : A2_estimation.R
 # Objectif : Estimation des quatre modèles à variable dépendante limitée
 #            (OLS, Tobit type I, Heckman 2 étapes, Two-Part model de Cragg)
-#            pour les dépenses OOP en santé. Ce script ne produit aucune
-#            statistique descriptive ni interprétation économétrique.
+#            pour les dépenses OOP en santé.
 # Input    : OOPs.dta
 # Outputs  : figures/diag_ols.png
 #            figures/tableau_comparatif.txt
@@ -22,15 +21,14 @@ library(modelsummary)
 library(dplyr)
 
 # --- 0.1 Chargement des données -----------------------------------------------
-# Adapter le chemin si nécessaire (chemin relatif supposé)
 data <- read_dta("OOPs.dta")
 
 # --- 0.2 Transformations des variables ----------------------------------------
 
-# prefecture : traitement explicite en factor() (numérique dans le .dta)
+# prefecture : variable numérique dans le .dta, convertie en factor
 data$prefecture <- as.factor(data$prefecture)
 
-# Variables catégorielles issues de haven (value labels) → as_factor()
+# Variables catégorielles encodées avec value labels haven → as_factor()
 vars_factor <- c("hgender", "hmstat", "heduc", "halfab",
                  "milieu", "region", "s03q01", "s03q05",
                  "s03q19", "s03q32", "hhandig")
@@ -42,9 +40,8 @@ cat("N total brut    :", nrow(data), "\n")
 cat("Part des zéros  :", round(mean(data$oops_sante == 0) * 100, 2), "%\n\n")
 
 # --- 0.3 Restriction aux observations complètes -------------------------------
-# s03q05 a 10 409 NA → suppression listwise massive si non anticipée.
-# On restreint data en amont pour que tous les modèles partagent le même support
-# et que les comparaisons AIC/BIC/LogLik soient valides.
+# s03q05 présente 10 409 NA. Suppression listwise en amont pour que tous les
+# modèles partagent le même support (comparaisons AIC/BIC/LogLik valides).
 vars_modele <- c("oops_sante", "hage", "hhsize", "pcexp", "dnal",
                  "hgender", "hmstat", "heduc", "halfab",
                  "milieu", "region", "prefecture",
@@ -66,14 +63,13 @@ for (v in vars_modele) {
 # Variable binaire de participation et log_oops sur data_complete
 data_complete$participe <- as.integer(data_complete$oops_sante > 0)
 data_complete$log_oops  <- log(data_complete$oops_sante)
-# log(0) = -Inf → présent dans data_complete mais géré par sous-échantillon (two-part)
+# log(0) = -Inf ; géré par restriction au sous-échantillon dans le two-part
 
 cat("N positifs (oops > 0) :", sum(data_complete$participe), "\n\n")
 
 # --- 0.4 Formule de base commune aux 4 modèles --------------------------------
-# s03q01 EXCLUE : variable constante sur data_complete (1 seul niveau effectif
-# après restriction listwise sur s03q05). Aucun contraste possible → exclusion
-# documentée. À signaler par A3 dans la discussion des variables retenues.
+# s03q01 exclue : variable invariante sur data_complete après suppression listwise
+# (un seul niveau effectif). Aucun contraste estimable.
 formule_base <- oops_sante ~ hage + hhsize + pcexp + dnal +
     hgender + hmstat + heduc + halfab +
     milieu + region + as.factor(prefecture) +
@@ -96,10 +92,10 @@ ols_robust <- coeftest(mod_ols, vcov = vcov_hc3)
 
 # --- Diagnostics post-estimation ---
 
-# Breusch-Pagan (hétéroscédasticité)
+# Test de Breusch-Pagan (hétéroscédasticité)
 bp_test <- bptest(mod_ols)
 
-# Ramsey RESET (mauvaise spécification fonctionnelle)
+# Test RESET de Ramsey (mauvaise spécification fonctionnelle)
 reset_test <- resettest(mod_ols, power = 2:3, type = "fitted")
 
 # Graphiques diagnostiques
@@ -126,8 +122,8 @@ cat("\nTest de Breusch-Pagan :\n")
 print(bp_test)
 cat("\nTest RESET :\n")
 print(reset_test)
-cat("\n[NOTE] Le test BP confirme l'hétéroscédasticité attendue.",
-    "Les erreurs HC3 sont donc les erreurs à reporter.\n\n")
+cat("\n[NOTE] Hétéroscédasticité confirmée par le test BP.",
+    "Les erreurs HC3 sont reportées.\n\n")
 
 
 # =============================================================================
@@ -142,27 +138,25 @@ cat("=============================================================\n")
 mod_tobit <- tobit(formule_base, left = 0, data = data_complete)
 
 # --- Effets marginaux — calcul analytique ------------------------------------
-# marginaleffects::avg_slopes() ne supporte pas AER::tobit de manière stable.
-# On implémente directement la formule du modèle Tobit type I :
+# Formule du modèle Tobit type I :
 #   E[y|y>0,x] = xβ + σ·λ(xβ/σ)      avec λ = φ/Φ (ratio de Mills inverse)
 #   E[y|x]     = Φ(xβ/σ)·E[y|y>0,x]
-# Les effets marginaux sur E[y|x] sont : β·Φ(xβ/σ)  (règle de la chaîne Tobit)
+# Effets marginaux sur E[y|x] : β·Φ(xβ/σ)
 
 sigma_tobit <- mod_tobit$scale
-xb          <- predict(mod_tobit, type = "link")    # xβ (index latent)
+xb          <- predict(mod_tobit, type = "link")    # index latent xβ
 phi_xb      <- dnorm(xb / sigma_tobit)
 Phi_xb      <- pnorm(xb / sigma_tobit)
 mills       <- phi_xb / Phi_xb                      # ratio de Mills inverse
 
 # E[y|y>0,x] = xβ + σ * λ(xβ/σ)
 E_cond  <- xb + sigma_tobit * mills
-# E[y|x]     = Φ(xβ/σ) * (xβ + σ * λ(xβ/σ))
+# E[y|x]     = Φ(xβ/σ) * E[y|y>0,x]
 E_uncond <- Phi_xb * E_cond
 
-# Effet marginal moyen (AME) de pcexp sur E[y|x] : β_pcexp · mean(Φ(xβ/σ))
+# AME de pcexp sur E[y|x]
 ame_pcexp_uncond <- coef(mod_tobit)["pcexp"] * mean(Phi_xb)
-# Effet marginal moyen de pcexp sur E[y|y>0,x] :
-# β_pcexp · (1 - λ(xβ/σ)·(xβ/σ + λ(xβ/σ)))
+# AME de pcexp sur E[y|y>0,x]
 ame_pcexp_cond   <- coef(mod_tobit)["pcexp"] * mean(1 - mills * (xb/sigma_tobit + mills))
 
 cat("\n--- Résultats Tobit ---\n")
@@ -172,7 +166,7 @@ cat("AIC             :", round(AIC(mod_tobit), 2), "\n")
 cat("BIC             :", round(BIC(mod_tobit), 2), "\n")
 cat("Sigma           :", round(sigma_tobit, 2), "\n")
 cat("\nCoefficient pcexp (Tobit, index latent) :\n")
-# Extraction directe via coef() — évite le bug car::linearHypothesis sur aliased coefficients
+# Extraction via coef() pour éviter le bug car::linearHypothesis sur aliased coefficients
 coef_tobit <- coef(mod_tobit)
 se_tobit   <- sqrt(diag(vcov(mod_tobit)))
 tval_tobit <- coef_tobit / se_tobit
@@ -196,36 +190,33 @@ cat("3. HECKMAN\n")
 cat("=============================================================\n")
 
 # --- Variable d'exclusion ---
-# s03q05 (recours effectif aux soins) est retenu comme instrument :
-#   → affecte la probabilité de consulter (et donc de dépenser)
-#   → hypothèse : n'affecte pas le montant conditionnel une fois la décision prise
-# !!! HYPOTHÈSE DE TRAVAIL — validité économétrique à discuter par A3 !!!
+# s03q05 (recours effectif aux soins) : affecte la probabilité de participer
+# mais est supposée sans effet sur le montant conditionnel à la participation.
+# Hypothèse de travail — validité à discuter.
 
-# NOTE : prefecture EXCLUE des équations Heckman et Two-Part.
-# Les préfectures 21, 34, 45, 55, 65, 73, 86 sont parfaitement colinéaires
-# avec la combinaison region × milieu sur data_complete → matrice singulière.
-# lm() et tobit() droppent silencieusement ces aliasés ; sampleSelection::selection()
-# est plus strict et plante. prefecture reste dans OLS et Tobit (estimés).
+# prefecture exclue des équations Heckman et Two-Part :
+# les préfectures 21, 34, 45, 55, 65, 73, 86 sont parfaitement colinéaires
+# avec region × milieu sur data_complete → matrice singulière.
+# lm() et tobit() droppent silencieusement ces aliasés ;
+# sampleSelection::selection() est plus strict et plante.
 
 formule_selection <- participe ~ hage + hhsize + pcexp + dnal +
     hgender + hmstat + heduc + halfab +
     region +
     s03q05 + s03q19 + hhandig + s03q32
-# s03q05 inclus ici (variable d'exclusion)
-# s03q01 EXCLUE : voir commentaire section 0.4
-# prefecture EXCLUE : colinéarité parfaite avec region × milieu
-# milieu EXCLU : Conakry = 100% urbain → colinéarité parfaite milieu × region
+# s03q01 exclue : voir section 0.4
+# prefecture et milieu exclus : colinéarité parfaite avec region
 
 formule_niveau <- oops_sante ~ hage + hhsize + pcexp + dnal +
     hgender + hmstat + heduc + halfab +
     region +
     hhandig + s03q32
-# s03q05 EXCLU de l'équation de niveau
-# prefecture et milieu EXCLUS : voir formule_selection
+# s03q05 exclu de l'équation de niveau (restriction d'exclusion)
+# prefecture et milieu exclus : voir formule_selection
 
-# NOTE : sampleSelection::selection() plante sur ce dataset (matrice jointe
-# singulière conditionnement ~8e-20, invariant à method="2step" et "ml").
-# On implémente les deux étapes manuellement — résultat strictement identique.
+# sampleSelection::selection() échoue sur ce dataset (matrice jointe singulière,
+# conditionnement ~8e-20, invariant à method="2step" et "ml").
+# Implémentation manuelle des deux étapes — résultat identique.
 
 # --- Étape 1 : Probit sur la participation ---
 mod_heckman_step1 <- glm(formule_selection,
@@ -259,18 +250,15 @@ print(sum_step2$coefficients["mills", ])
 
 lambda_pval <- sum_step2$coefficients["mills", 4]
 if (lambda_pval < 0.05) {
-    cat("[INFO] Lambda significatif → biais de sélection présent.",
-        "Heckman justifié vs two-part indépendant.\n")
+    cat("[INFO] Lambda significatif → biais de sélection présent.\n")
 } else {
-    cat("[ATTENTION] Lambda non significatif → Heckman réduit à two-part indépendant.",
-        "Voir A3 pour discussion.\n")
+    cat("[ATTENTION] Lambda non significatif → Heckman réduit à two-part indépendant.\n")
 }
 
 cat("\nCoefficient pcexp (étape 2) :\n")
 print(sum_step2$coefficients["pcexp", ])
 cat("\n[NOTE] Les erreurs standard de l'étape 2 sont non corrigées (OLS naïf).",
-    "Elles sous-estiment la variance réelle car elles ignorent l'estimation",
-    "de lambda à l'étape 1. À signaler par A3.\n\n")
+    "Elles sous-estiment la variance réelle (estimation de lambda ignorée à l'étape 1).\n\n")
 
 
 # =============================================================================
@@ -287,8 +275,8 @@ formule_probit <- participe ~ hage + hhsize + pcexp + dnal +
     hgender + hmstat + heduc + halfab +
     region +
     s03q05 + s03q19 + hhandig + s03q32
-# s03q01 EXCLUE : voir commentaire section 0.4
-# prefecture et milieu EXCLUS : colinéarités avec region (Conakry = 100% urbain)
+# s03q01 exclue : voir section 0.4
+# prefecture et milieu exclus : colinéarités avec region (Conakry 100% urbain)
 
 mod_twopart_probit <- glm(formule_probit,
                           family = binomial(link = "probit"),
@@ -301,23 +289,21 @@ ll_probit_null <- logLik(glm(participe ~ 1,
 ll_probit_full <- logLik(mod_twopart_probit)
 mcfadden_r2    <- 1 - as.numeric(ll_probit_full) / as.numeric(ll_probit_null)
 
-# Vérification de la quasi-séparation pour s03q32 (0.53% couverts)
+# Vérification de quasi-séparation pour s03q32 (couverture ~0.53%)
 cat("[INFO] Vérification de s03q32 dans le probit :\n")
 cat("Répartition s03q32 × participe :\n")
 print(table(data_complete$s03q32, data_complete$participe, useNA = "ifany"))
-# Si une cellule est 0 → quasi-séparation → retirer s03q32 et redocumenter
 
 # --- Partie 2 : OLS sur log(oops_sante) | oops_sante > 0 ---
 
 data_pos <- subset(data_complete, oops_sante > 0)
-# log_oops déjà créé, log(0) absent du sous-échantillon par construction
 
 formule_ols_log <- log_oops ~ hage + hhsize + pcexp + dnal +
     hgender + hmstat + heduc + halfab +
     region +
     s03q05 + s03q19 + hhandig + s03q32
-# s03q01 EXCLUE : voir commentaire section 0.4
-# prefecture et milieu EXCLUS : colinéarités avec region
+# s03q01 exclue : voir section 0.4
+# prefecture et milieu exclus : colinéarités avec region
 
 mod_twopart_ols <- lm(formule_ols_log, data = data_pos)
 
@@ -325,30 +311,27 @@ vcov_hc3_tp    <- vcovHC(mod_twopart_ols, type = "HC3")
 tp_ols_robust  <- coeftest(mod_twopart_ols, vcov = vcov_hc3_tp)
 
 # --- Reconstruction de E[y|x] en niveaux ---
-# E[y|x] = P(y>0|x) × exp(xβ₂ + σ²/2)
-# La correction exp(σ²/2) suppose log-normalité des erreurs de la partie 2.
-# Si hétéroscédasticité détectée → correction de Duan smearing plus robuste.
+# E[y|x] = P(y>0|x) × exp(xβ₂ + σ²/2)  sous hypothèse de log-normalité
+# En présence d'hétéroscédasticité : correction de Duan smearing
 
 sigma2_tp    <- summary(mod_twopart_ols)$sigma
 P_pos        <- predict(mod_twopart_probit, type = "response", newdata = data_complete)
-xb2          <- predict(mod_twopart_ols,    newdata = data_complete)  # prédit hors support → extrapolation
+xb2          <- predict(mod_twopart_ols,    newdata = data_complete)
 E_y_lognorm  <- P_pos * exp(xb2 + sigma2_tp^2 / 2)
 
-# Correction de Duan smearing (alternative robuste à l'hétéroscédasticité)
+# Correction de Duan smearing
 residus_tp   <- residuals(mod_twopart_ols)
-duan_factor  <- mean(exp(residus_tp))  # smearing estimator
+duan_factor  <- mean(exp(residus_tp))
 E_y_duan     <- P_pos * exp(xb2) * duan_factor
 
-# Test d'hétéroscédasticité sur la partie 2 pour choisir la correction
+# Test d'hétéroscédasticité sur la partie 2
 bp_tp <- bptest(mod_twopart_ols)
 cat("\nTest Breusch-Pagan (partie OLS log) :\n")
 print(bp_tp)
 if (bp_tp$p.value < 0.05) {
-    cat("[INFO] Hétéroscédasticité détectée dans la partie 2 →",
-        "correction de Duan smearing recommandée.\n")
+    cat("[INFO] Hétéroscédasticité détectée → correction de Duan smearing retenue.\n")
 } else {
-    cat("[INFO] Pas d'hétéroscédasticité significative →",
-        "correction log-normale standard retenue.\n")
+    cat("[INFO] Pas d'hétéroscédasticité significative → correction log-normale retenue.\n")
 }
 
 cat("\n--- Résultats Two-Part ---\n")
@@ -361,7 +344,7 @@ cat("AIC OLS log          :", round(AIC(mod_twopart_ols), 2), "\n")
 cat("BIC OLS log          :", round(BIC(mod_twopart_ols), 2), "\n")
 cat("Sigma OLS log        :", round(sigma2_tp, 4), "\n")
 cat("Duan smearing factor :", round(duan_factor, 4), "\n")
-cat("\nCoefficient pcexp (probit, robust non dispo) :\n")
+cat("\nCoefficient pcexp (probit) :\n")
 print(summary(mod_twopart_probit)$coefficients["pcexp", ])
 cat("\nCoefficient pcexp (OLS log, robust) :\n")
 print(tp_ols_robust["pcexp", ])
@@ -377,7 +360,6 @@ cat("=============================================================\n")
 cat("5. TABLEAU COMPARATIF\n")
 cat("=============================================================\n")
 
-# Extraction manuelle pour compatibilité cross-modèles
 tableau_comp <- data.frame(
     Modele    = c("OLS", "Tobit", "Heckman", "Two-Part (probit)", "Two-Part (OLS log)"),
     N_obs     = c(
@@ -390,7 +372,7 @@ tableau_comp <- data.frame(
     LogLik    = c(
         round(as.numeric(logLik(mod_ols)),            2),
         round(as.numeric(logLik(mod_tobit)),           2),
-        NA,   # logLik non standard en 2-step Heckman
+        NA,   # logLik non défini en 2-step Heckman manuel
         round(as.numeric(logLik(mod_twopart_probit)), 2),
         round(as.numeric(logLik(mod_twopart_ols)),    2)
     ),
@@ -426,13 +408,12 @@ tableau_comp <- data.frame(
 
 print(tableau_comp)
 
-# Sauvegarde texte
 write.table(tableau_comp,
             file      = "figures/tableau_comparatif.txt",
             sep       = "\t",
             row.names = FALSE,
             quote     = FALSE)
 
-cat("\nTableaux sauvegardés dans figures/tableau_comparatif.txt et .tex\n")
+cat("\nTableau sauvegardé dans figures/tableau_comparatif.txt\n")
 cat("Graphiques OLS sauvegardés dans figures/diag_ols.png\n")
 cat("\n=== FIN DU SCRIPT A2 ===\n")
