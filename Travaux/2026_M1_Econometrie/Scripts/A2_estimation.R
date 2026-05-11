@@ -7,7 +7,7 @@
 # Outputs  : figures/diag_ols.png
 #            figures/tableau_comparatif.txt
 # Auteur   : Antoine Jean
-# Date     : 2025-2026
+# Date     : 2025-2026 
 # =============================================================================
 
 # --- 0. Packages --------------------------------------------------------------
