@@ -278,7 +278,6 @@ cat("Figure sauvegardée : figures/hist_log_oops_positif.png\n\n")
 # -----------------------------------------------------------------------------
 # Limite : Shapiro-Wilk n'est fiable que pour n <= 5000.
 # Au-delà, la puissance est telle que H0 est rejetée mécaniquement.
-# On applique le test sur un sous-échantillon aléatoire si nécessaire.
 
 cat("=== TEST DE NORMALITÉ (Shapiro-Wilk) ===\n")
 
@@ -307,40 +306,9 @@ cat("    un modèle two-part avec régression log-normale sur l'équation de niv
 cat("  - L'absence de normalité en soi ne disqualifie pas l'OLS (TCL),\n")
 cat("    mais la forte asymétrie et les zéros excessifs motivent les alternatives.\n\n")
 
-
-# -----------------------------------------------------------------------------
-# 2.4 Commentaires sur les implications pour la modélisation
-# (hypothèses de travail, non des conclusions définitives)
-# -----------------------------------------------------------------------------
-
-cat("=== HYPOTHÈSES DE TRAVAIL POUR LES AGENTS A2/A3 ===\n")
-cat(sprintf("Part des zéros : %.2f%%\n", pct_zeros))
-cat("
-Hypothèse H1 (censure) :
-  Les zéros reflètent une dépense latente non observable (contrainte budgétaire,
-  absence d'offre de soins). → Modèle Tobit type I cohérent sous cette hypothèse.
-  → À invalider si des ménages 'en bonne santé' sont structurellement non-consommateurs.
-
-Hypothèse H2 (non-participation) :
-  Les zéros résultent d'une décision de non-recours aux soins (pas de besoin,
-  préférence, barrières culturelles). → Modèle de sélection de Heckman ou
-  modèle two-part (Cragg) plus appropriés sous cette hypothèse.
-  → La discrimination entre H1 et H2 relève de la connaissance du terrain
-    (Guinée 2018-19) et des tests d'adéquation : rôle de l'agent A3.
-
-Hypothèse H3 (queue épaisse) :
-  L'asymétrie positive de la distribution des dépenses positives suggère
-  une log-transformation ou un estimateur robuste aux valeurs extrêmes.
-  → À confirmer par l'analyse des outliers (section 4).
-")
-
-
 # =============================================================================
 # 3. ANALYSE DES VARIABLES EXPLICATIVES RETENUES
 # =============================================================================
-# Note : cette section adapte son comportement selon que les variables
-# sont numériques continues ou catégorielles (factor/haven_labelled).
-
 
 # -----------------------------------------------------------------------------
 # 3.1 Statistiques descriptives standards
@@ -364,7 +332,7 @@ vars_categorielles <- vars_presentes[
 cat("Variables continues identifiées :\n", paste(vars_continues, collapse = ", "), "\n\n")
 cat("Variables catégorielles identifiées :\n", paste(vars_categorielles, collapse = ", "), "\n\n")
 
-# Statistiques pour variables continues — base R pur (compatible toutes versions dplyr)
+# Statistiques pour variables continues
 if (length(vars_continues) > 0) {
     df_cont <- as.data.frame(dta)[, vars_continues, drop = FALSE]
     stats_continues <- do.call(rbind, lapply(vars_continues, function(v) {
@@ -448,12 +416,12 @@ if (length(vars_continues) >= 2) {
 
 
 # -----------------------------------------------------------------------------
-# 3.4 Variance Inflation Factor (VIF) — détection de multicolinéarité
+# 3.4 Variance Inflation Factor (VIF) : détection de multicolinéarité
 # -----------------------------------------------------------------------------
 # Le VIF est calculé via une régression auxiliaire OLS incluant toutes
 # les variables continues. Un VIF > 10 est le seuil standard d'alerte ;
 # certains auteurs retiennent 5 comme seuil conservateur.
-# ATTENTION : ceci N'EST PAS une estimation de modèle finale — c'est
+# ATTENTION : ceci N'EST PAS une estimation de modèle finale : c'est
 # un diagnostic purement descriptif de la structure des régresseurs.
 
 if (length(vars_continues) >= 2) {
