@@ -1,7 +1,7 @@
-# Projet M1 Économie — Détection de bulle spéculative sur le Bitcoin
+# Projet M1 Économie : Détection de bulle spéculative sur le Bitcoin
 
-**Auteur :** Antoine Jean
-**Encadrant :** Jamal Bouoiyour
+**Auteur :** Antoine Jean  
+**Encadrant :** Jamal Bouoiyour  
 **Année universitaire :** 2025–2026
 
 ## Objet
@@ -62,19 +62,19 @@ install.packages(c(
 
 Les scripts doivent être exécutés **dans l'ordre** dans la même session R, car chacun utilise des objets créés par les précédents :
 
-1. `01-btc_analyse_descriptive.R` : télécharge les données, calcule les statistiques descriptives, produit les graphiques `btc_*.png`.
+1. `01-btc_analyse_descriptive.R` : télécharge les données, calcule les statistiques descriptives, produit les graphiques `btc_*.png`.  
    Objets créés : `df`, `df_ret`, `prix`.
 
-2. `02-stationnarite_cointegration_VAR.R` : tests de stationnarité, de cointégration, estimation du VAR, tests de Granger, IRF et FEVD.
-   Objets créés : `prix_clean`, `modele_var`, `tab_stat`, `tab_jo`.
+2. `02-stationnarite_cointegration_VAR.R` : tests de stationnarité, de cointégration, estimation du VAR, tests de Granger, IRF et FEVD.  
+   Objets créés : `prix_clean`, `modele_var`, `tab_stat`, `tab_jo`.  
    Graphiques produits : `IRF_*.png`.
 
-3. `03-Tests_SADF_GSADF.R` : tests SADF et GSADF, date-stamping des épisodes explosifs.
+3. `03-Tests_SADF_GSADF.R` : tests SADF et GSADF, date-stamping des épisodes explosifs.  
    Graphiques produits : `bitcoin_logprix_episodes_explosifs.png` et `bitcoin_bsadf_sequence.png`.
 
 ## Sorties générées
 
-Les scripts produisent les graphiques PNG (300 dpi) dans le répertoire de travail courant. Dans ce dépôt, ils ont été centralisés dans le dossier `Output/`. Les sorties console (tableaux récapitulatifs de stationnarité, Johansen, SADF/GSADF, datation des épisodes) sont affichées en français lors de l'exécution.
+Les scripts produisent les graphiques PNG dans le répertoire de travail courant. Dans ce dépôt, ils ont été centralisés dans le dossier `Output/`. Les sorties console (tableaux récapitulatifs de stationnarité, Johansen, SADF/GSADF, datation des épisodes) sont affichées en français lors de l'exécution.
 
 ## Rapport
 
