@@ -14,8 +14,6 @@ library(kableExtra)
 library(scales)
 library(lubridate)
 
-# install.packages(c("quantmod","ggplot2","moments","tseries","xts","zoo",
-#                    "knitr","kableExtra","scales","lubridate"))
 
 
 # ----- Récup des données -----------------------------------------------------
