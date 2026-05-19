@@ -1,7 +1,7 @@
 # Projet M1 Économie — Détection de bulle spéculative sur le Bitcoin
 
-**Auteur :** [Antoine Jean]
-**Encadrant :** Pr Jamal Bouoiyour
+**Auteur :** Antoine Jean
+**Encadrant :** Jamal Bouoiyour
 **Année universitaire :** 2025–2026
 
 ## Objet
@@ -39,12 +39,23 @@ install.packages(c(
 ## Structure du dépôt
 
 ```
-.
-├── README.md
-├── 01-btc_analyse_descriptive.R       # Script #1 : téléchargement, descriptive
-├── 02-stationnarite_cointegration_VAR.R # Script #2 : stationnarité, cointégration, VAR
-├── 03-Tests_SADF_GSADF.R              # Script #3 : SADF, GSADF, date-stamping
-└── rapport_btc_bulle.tex              # Rapport LaTeX
+2026_M1_Series-temporelles/
+├── README.md                                  # Le présent fichier
+├── Consigne.docx                              # Énoncé du projet
+├── Series-temporelles.pdf                     # Rapport final compilé
+└── Output/
+    ├── btc_prix_niveau.png                    # Graphiques produits par les scripts
+    ├── btc_log_rendements.png
+    ├── btc_histogramme_ret.png
+    ├── btc_qqplot_ret.png
+    ├── IRF_prix_vers_volume.png
+    ├── IRF_volume_vers_prix.png
+    ├── bitcoin_logprix_episodes_explosifs.png
+    ├── bitcoin_bsadf_sequence.png
+└── Scripts/
+    ├── 01-btc_analyse_descriptive.R           # Téléchargement, descriptive
+    ├── 02-stationnarite_cointegration_VAR.R   # Stationnarité, cointégration, VAR
+    └── 03-Tests_SADF_GSADF.R                  # SADF, GSADF, date-stamping
 ```
 
 ## Ordre d'exécution
@@ -63,29 +74,17 @@ Les scripts doivent être exécutés **dans l'ordre** dans la même session R, c
 
 ## Sorties générées
 
-À la fin de l'exécution, le répertoire de travail contient :
+Les scripts produisent les graphiques PNG (300 dpi) dans le répertoire de travail courant. Dans ce dépôt, ils ont été centralisés dans le dossier `Output/`. Les sorties console (tableaux récapitulatifs de stationnarité, Johansen, SADF/GSADF, datation des épisodes) sont affichées en français lors de l'exécution.
 
-- **Graphiques PNG** (300 dpi) :
-  `btc_prix_niveau.png`, `btc_log_rendements.png`,
-  `btc_histogramme_ret.png`, `btc_qqplot_ret.png`,
-  `IRF_prix_vers_volume.png`, `IRF_volume_vers_prix.png`,
-  `bitcoin_logprix_episodes_explosifs.png`, `bitcoin_bsadf_sequence.png`.
+## Rapport
 
-- **Sorties console** : tableaux récapitulatifs (stationnarité, Johansen, SADF/GSADF, épisodes datés) en français.
-
-## Compilation du rapport
-
-Le rapport `rapport_btc_bulle.tex` requiert un fichier `template.tex` dans le même dossier ainsi que les 8 PNG listés ci-dessus. Compilation standard avec `pdflatex` :
-
-```
-pdflatex rapport_btc_bulle.tex
-```
+Le rapport final compilé est disponible à la racine du dépôt : `Series-temporelles.pdf`.
 
 ## Notes méthodologiques
 
-- **Lag du VAR** : sélectionné par AIC (\(p = 8\)). Le critère SC suggère \(p = 7\), conservé comme variante parcimonieuse possible.
+- **Lag du VAR** : sélectionné par AIC sur les séries en différences premières ($p = 8$). Le critère SC suggère $p = 7$, conservé comme variante parcimonieuse possible. Le VAR sur niveaux préliminaire au test de Johansen retient un lag différent ($p = 9$), ce qui est cohérent avec la perte d'une partie de la dynamique par différenciation.
 - **Cointégration** : les tests de Phillips-Ouliaris et de Johansen divergent (PO rejette H0, Johansen ne la rejette pas au seuil 5 %). Le rapport retient le résultat de Johansen, standard en cadre multivarié.
-- **SADF/GSADF** : implémentation par fallback `urca::ur.df` en boucle récursive, le package `MultipleBubbles` étant incompatible avec la version R utilisée. Les valeurs critiques utilisées (1.40 pour SADF, 1.87 pour GSADF) sont celles de Phillips, Shi & Yu (2015, Tables 1 et 2) pour \(T\) grand.
+- **SADF/GSADF** : implémentation par fallback `urca::ur.df` en boucle récursive, le package `MultipleBubbles` étant incompatible avec la version R utilisée. Les valeurs critiques utilisées (1.40 pour SADF, 1.87 pour GSADF) sont celles de Phillips, Shi & Yu (2015, Tables 1 et 2) pour $T$ grand.
 
 ## Références principales
 
