@@ -1,6 +1,6 @@
 # Drought shocks and economic growth — replication code
 
-Code used for the empirical analysis in the M1 thesis *"Chocs hydriques et croissance économique : une transposition de Callahan & Mankin (2022) sur un panel régional mondial"*. The pipeline estimates the effect of drought severity (SPEI-12) on sub-national GDP per capita growth using a two-way fixed-effects panel model, then attributes a share of that effect to anthropogenic forcing via CMIP6 DAMIP simulations.
+Code utilisé pour l'analyse empirique du mémoire de M1 *« Chocs hydriques et croissance économique : une transposition de Callahan & Mankin (2022) sur un panel régional mondial »*. Le pipeline estime l'effet de l'intensité des déficits hydriques (SPEI-12) sur la croissance du PIB par habitant sous-national à l'aide d'un modèle de panel à doubles effets fixes, puis attribue une part de cet effet au forçage anthropique via les simulations CMIP6 DAMIP.
 
 ---
 
