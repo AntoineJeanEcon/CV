@@ -1,0 +1,81 @@
+# ── Données brutes et données traitées ────────────────────────────────────────
+data/
+
+# ── Sorties de l'analyse ──────────────────────────────────────────────────────
+results/
+
+# ── Python ────────────────────────────────────────────────────────────────────
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+.Python
+*.egg
+*.egg-info/
+dist/
+build/
+*.whl
+.eggs/
+
+# ── Environnements virtuels ───────────────────────────────────────────────────
+.env
+.venv
+env/
+venv/
+ENV/
+.conda/
+
+# ── Jupyter ───────────────────────────────────────────────────────────────────
+.ipynb_checkpoints/
+*.ipynb
+
+# ── Fichiers lourds / données géospatiales ────────────────────────────────────
+*.nc
+*.nc4
+*.h5
+*.hdf5
+*.grib
+*.zarr/
+*.tif
+*.tiff
+*.shp
+*.dbf
+*.shx
+*.prj
+*.cpg
+*.qpj
+
+# ── Fichiers CSV, Excel, Parquet ──────────────────────────────────────────────
+*.csv
+*.xlsx
+*.xls
+*.parquet
+*.feather
+
+# ── Pickle et sérialisation ───────────────────────────────────────────────────
+*.pkl
+*.pickle
+*.npy
+*.npz
+
+# ── Logs et temporaires ───────────────────────────────────────────────────────
+*.log
+*.tmp
+*.bak
+*.swp
+*~
+.DS_Store
+Thumbs.db
+
+# ── IDE ───────────────────────────────────────────────────────────────────────
+.vscode/
+.idea/
+*.suo
+*.user
+*.sln.docstates
+
+# ── Figures (générées automatiquement) ───────────────────────────────────────
+*.png
+*.pdf
+*.svg
+*.eps
