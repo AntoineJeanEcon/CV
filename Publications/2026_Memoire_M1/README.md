@@ -1,4 +1,4 @@
-# Drought shocks and economic growth — replication code
+# Chocs de sécheresse et croissance économique - replication code
 
 Code utilisé pour l'analyse empirique du mémoire de M1 *« Chocs hydriques et croissance économique : une transposition de Callahan & Mankin (2022) sur un panel régional mondial »*. Le pipeline estime l'effet de l'intensité des déficits hydriques (SPEI-12) sur la croissance du PIB par habitant sous-national à l'aide d'un modèle de panel à doubles effets fixes, puis attribue une part de cet effet au forçage anthropique via les simulations CMIP6 DAMIP.
 
