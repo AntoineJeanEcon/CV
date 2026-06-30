@@ -9,7 +9,7 @@ Code utilisé pour l'analyse empirique du mémoire de M1 *« Chocs hydriques et 
 Le pipeline est organisé en **deux branches indépendantes** (série 000 et série 100) qui convergent dans le script d'attribution finale (série 200).
 
 ```
-BRANCHE 000                        BRANCHE 100                       SÉRIE 200
+BRANCHE 000                        BRANCHE 100                        SÉRIE 200
 Préparation climatique CMIP6       Estimation économétrique           Convergence
 ════════════════════════           ══════════════════════             ═══════════
 000_download_cmip6.py              100_build_panel.py
@@ -19,7 +19,7 @@ Préparation climatique CMIP6       Estimation économétrique           Converg
 002_compute_delta_spei.py          102_distributed_lag.py
         │                                  │
         │   Δ SPEI                         │  coeff. DLM
-        └──────────────────────────────────┴──────► 200_attribution.py
+        └──────────────────────────────────┴────────────────────────► 200_attribution.py
                                            │
                                    103_conley_se.py
                                            │
