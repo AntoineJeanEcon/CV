@@ -30,8 +30,9 @@
     }
     .name { font-size: 26px; font-weight: 600; letter-spacing: -0.6px; line-height: 1; }
     .subtitle { font-size: 11px; color: var(--accent); margin-top: 4px; }
+    .status-badges { display: flex; flex-direction: column; gap: 5px; margin-top: 7px; }
     .status-badge {
-      display: inline-flex; align-items: center; gap: 5px; margin-top: 7px;
+      display: inline-flex; align-items: center; gap: 5px; width: fit-content;
       background: rgba(58,92,122,0.1); border: 1px solid rgba(58,92,122,0.25);
       color: var(--accent); padding: 3px 10px; border-radius: 20px; font-size: 9px;
     }
@@ -162,7 +163,8 @@
       .topbar-head { flex: 1; min-width: 0; }
       .name { font-size: 20px; }
       .subtitle { font-size: 10px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-      .status-badge { margin-top: 5px; font-size: 8.5px; }
+      .status-badges { margin-top: 5px; }
+      .status-badge { font-size: 8.5px; }
 
       /* Mobile right: lang + contact toggle */
       .topbar-mobile-right {
@@ -211,7 +213,10 @@
     <div class="topbar-head">
       <div class="name">Antoine Jean</div>
       <div class="subtitle" id="subtitle"></div>
-      <div class="status-badge"><div class="status-dot"></div><span id="seeking"></span></div>
+      <div class="status-badges">
+        <div class="status-badge"><div class="status-dot"></div><span id="seeking"></span></div>
+        <div class="status-badge"><div class="status-dot"></div><span id="seekingPhd"></span></div>
+      </div>
     </div>
 
     <!-- Desktop right (hidden on mobile) -->
@@ -279,8 +284,9 @@ const GH = "https://github.com/AntoineJeanEcon/CV/blob/main/Travaux";
 // ── Translations ──────────────────────────────────────────────────────────────
 const T = {
   fr: {
-    subtitle: "M1 Économie Appliquée · Université de Pau et des Pays de l'Adour",
+    subtitle: "M2 Économie Appliquée · Université de Pau et des Pays de l'Adour",
     seeking:  "Recherche stage · À partir de janvier 2027 · 6 mois",
+    seekingPhd: "Recherche de thèse · À partir de 2027",
     tabs: ["apropos","formation","experience","publications","projets"],
     tabLabels: { apropos:"À propos", formation:"Formation", experience:"Expériences", publications:"Publications", projets:"Projets" },
     viewPdf: "Voir PDF ↗",
@@ -327,9 +333,23 @@ const T = {
       { year:"2011–2022", title:"Sapeur-pompier : Caporal", org:"SDIS33 · Caserne 34 · La Réole, Gironde",
         detail:"Jeune Sapeur-Pompier (2011–2018) · Sapeur-Pompier (2018–2022) · Formateur JSP (2018–2022)." },
     ],
+    pubSubLabel: "Publications",
+    memoireSubLabel: "Mémoire",
     publications: [
       { year:"2025", title:"Natural Capital and Economic Growth", org:"A. Jean, T. Roncalli, A. Usardi",
-        detail:"Article de recherche portant sur l'intégration du capital naturel dans les modèles de croissance économique, issu de travaux menés en recherche quantitative chez Amundi Asset Management." },
+        detail:"Article de recherche portant sur l'intégration du capital naturel dans les modèles de croissance économique, issu de travaux menés en recherche quantitative chez Amundi Asset Management.",
+        links:[
+          { label:"Amundi", url:"https://research-center.amundi.com/article/natural-capital-and-economic-growth" },
+          { label:"ResearchGate", url:"https://www.researchgate.net/publication/394967692_Natural_Capital_and_Economic_Growth" },
+          { label:"SSRN", url:"https://papers.ssrn.com/sol3/papers.cfm?abstract_id=5405959" },
+        ] },
+    ],
+    memoires: [
+      { year:"2026", title:"Chocs hydriques extrêmes et croissance économique sous-nationale", org:"A. Jean · UPPA, sous la direction de Patrice Cassagnard",
+        detail:"Mémoire de M1 estimant l'effet causal des déficits hydriques extrêmes sur la croissance économique régionale, sur un panel de 2 832 régions mondiales (1993–2013), par régressions à effets fixes, avec attribution de l'effet au forçage anthropique via des simulations climatiques contrefactuelles. Un choc de sécheresse réduit la croissance régionale d'environ un point la même année, effet transitoire mais robuste aux tests de dépendance spatiale.",
+        links:[
+          { label:"PDF", url:"https://github.com/AntoineJeanEcon/CV/blob/main/Publications/2026_Memoire_M1/Antoine_Jean_Memoire_M1_final.pdf" },
+        ] },
     ],
     projets: [
       { year:"2026", title:"Machine Learning",                  org:"M1 · UPPA · Python", link:`${GH}/2026_M1_Machine-Learning/Machine_Learning.pdf` },
@@ -342,8 +362,9 @@ const T = {
   },
 
   en: {
-    subtitle: "M1 Applied Economics · University of Pau and Pays de l'Adour",
+    subtitle: "M2 Applied Economics · University of Pau and Pays de l'Adour",
     seeking:  "Seeking internship · From January 2027 · 6 months",
+    seekingPhd: "Seeking PhD position · From 2027",
     tabs: ["apropos","formation","experience","publications","projets"],
     tabLabels: { apropos:"About", formation:"Education", experience:"Experience", publications:"Publications", projets:"Projects" },
     viewPdf: "View PDF ↗",
@@ -390,9 +411,23 @@ const T = {
       { year:"2011–2022", title:"Firefighter · Corporal", org:"SDIS33 · Station 34 · La Réole, Gironde",
         detail:"Junior Firefighter (2011–2018) · Firefighter (2018–2022) · JSP Instructor (2018–2022)." },
     ],
+    pubSubLabel: "Publications",
+    memoireSubLabel: "Thesis",
     publications: [
       { year:"2025", title:"Natural Capital and Economic Growth", org:"A. Jean, T. Roncalli, A. Usardi",
-        detail:"Research article addressing the integration of natural capital into economic growth models. Produced during a quantitative research internship at Amundi Asset Management." },
+        detail:"Research article addressing the integration of natural capital into economic growth models. Produced during a quantitative research internship at Amundi Asset Management.",
+        links:[
+          { label:"Amundi", url:"https://research-center.amundi.com/article/natural-capital-and-economic-growth" },
+          { label:"ResearchGate", url:"https://www.researchgate.net/publication/394967692_Natural_Capital_and_Economic_Growth" },
+          { label:"SSRN", url:"https://papers.ssrn.com/sol3/papers.cfm?abstract_id=5405959" },
+        ] },
+    ],
+    memoires: [
+      { year:"2026", title:"Extreme Water Shocks and Subnational Economic Growth", org:"A. Jean · UPPA, supervised by Patrice Cassagnard",
+        detail:"M1 thesis estimating the causal effect of extreme water deficits on regional economic growth across a panel of 2,832 regions worldwide (1993–2013), using fixed-effects regressions and attributing the impact to anthropogenic forcing via counterfactual climate simulations. A drought shock lowers same-year regional growth by roughly one percentage point — a transitory but robust effect.",
+        links:[
+          { label:"PDF", url:"https://github.com/AntoineJeanEcon/CV/blob/main/Publications/2026_Memoire_M1/Antoine_Jean_Memoire_M1_final.pdf" },
+        ] },
     ],
     projets: [
       { year:"2026", title:"Machine Learning",            org:"M1 · UPPA · Python", link:`${GH}/2026_M1_Machine-Learning/Machine_Learning.pdf` },
@@ -405,8 +440,9 @@ const T = {
   },
 
   es: {
-    subtitle: "M1 Economía Aplicada · Universidad de Pau y Países del Adour",
+    subtitle: "M2 Economía Aplicada · Universidad de Pau y Países del Adour",
     seeking:  "Búsqueda de prácticas · Desde Enero 2027 · 6 meses",
+    seekingPhd: "Búsqueda de doctorado · Desde 2027",
     tabs: ["apropos","formation","experience","publications","projets"],
     tabLabels: { apropos:"Sobre mí", formation:"Formación", experience:"Experiencia", publications:"Publicaciones", projets:"Proyectos" },
     viewPdf: "Ver PDF ↗",
@@ -453,9 +489,23 @@ const T = {
       { year:"2011–2022", title:"Bombero · Cabo", org:"SDIS33 · Caserna 34 · La Réole, Gironda",
         detail:"Joven Bombero (2011–2018) · Bombero (2018–2022) · Instructor JSP (2018–2022)." },
     ],
+    pubSubLabel: "Publicaciones",
+    memoireSubLabel: "Memoria",
     publications: [
       { year:"2025", title:"Natural Capital and Economic Growth", org:"A. Jean, T. Roncalli, A. Usardi",
-        detail:"Artículo de investigación sobre la integración del capital natural en los modelos de crecimiento económico, realizado durante prácticas en Amundi Asset Management." },
+        detail:"Artículo de investigación sobre la integración del capital natural en los modelos de crecimiento económico, realizado durante prácticas en Amundi Asset Management.",
+        links:[
+          { label:"Amundi", url:"https://research-center.amundi.com/article/natural-capital-and-economic-growth" },
+          { label:"ResearchGate", url:"https://www.researchgate.net/publication/394967692_Natural_Capital_and_Economic_Growth" },
+          { label:"SSRN", url:"https://papers.ssrn.com/sol3/papers.cfm?abstract_id=5405959" },
+        ] },
+    ],
+    memoires: [
+      { year:"2026", title:"Choques hídricos extremos y crecimiento económico subnacional", org:"A. Jean · UPPA, dirigido por Patrice Cassagnard",
+        detail:"Memoria de primer curso de Máster que estima el efecto causal de los déficits hídricos extremos sobre el crecimiento económico regional, en un panel de 2.832 regiones del mundo (1993–2013), mediante regresiones de efectos fijos, con atribución del efecto al forzamiento antropogénico a través de simulaciones climáticas contrafactuales. Un choque de sequía reduce el crecimiento regional en torno a un punto porcentual el mismo año, un efecto transitorio pero robusto.",
+        links:[
+          { label:"PDF", url:"https://github.com/AntoineJeanEcon/CV/blob/main/Publications/2026_Memoire_M1/Antoine_Jean_Memoire_M1_final.pdf" },
+        ] },
     ],
     projets: [
       { year:"2026", title:"Machine Learning",                org:"M1 · UPPA · Python", link:`${GH}/2026_M1_Machine-Learning/Machine_Learning.pdf` },
@@ -532,26 +582,38 @@ function groupProjectsByYear(projets, t) {
     </div>`).join('');
 }
 
+function pubEntryHTML(e) {
+  return `
+    <div class="entry">
+      <div class="entry-body">
+        <div class="entry-title">${e.title}</div>
+        <div class="entry-org">${e.org}</div>
+        <div class="entry-detail">${e.detail}</div>
+        ${e.links ? `<div class="pub-links">${e.links.map(l=>`<a href="${l.url}" target="_blank" rel="noreferrer" class="pub-link">${l.label} ↗</a>`).join('')}</div>` : ''}
+      </div>
+      <div class="entry-year">${e.year}</div>
+    </div>`;
+}
+
+function pubSubSectionHTML(label, entries) {
+  if (!entries || !entries.length) return '';
+  return `
+    <div class="year-section">
+      <div class="year-header">
+        <span class="year-label">${label}</span>
+        <span class="year-line"></span>
+      </div>
+      ${entries.map(pubEntryHTML).join('')}
+    </div>`;
+}
+
 function renderMain(t) {
   if (!t.tabs.includes(curTab)) curTab = t.tabs[0];
   const panels = {
     apropos:      t.apropos || '',
     formation:    t.formation.map(entryHTML).join(''),
     experience:   t.experience.map(entryHTML).join(''),
-    publications: t.publications.map(e => `
-      <div class="entry">
-        <div class="entry-body">
-          <div class="entry-title">${e.title}</div>
-          <div class="entry-org">${e.org}</div>
-          <div class="entry-detail">${e.detail}</div>
-          <div class="pub-links">
-            <a href="https://research-center.amundi.com/article/natural-capital-and-economic-growth" target="_blank" rel="noreferrer" class="pub-link">Amundi ↗</a>
-            <a href="https://www.researchgate.net/publication/394967692_Natural_Capital_and_Economic_Growth" target="_blank" rel="noreferrer" class="pub-link">ResearchGate ↗</a>
-            <a href="https://papers.ssrn.com/sol3/papers.cfm?abstract_id=5405959" target="_blank" rel="noreferrer" class="pub-link">SSRN ↗</a>
-          </div>
-        </div>
-        <div class="entry-year">${e.year}</div>
-      </div>`).join(''),
+    publications: pubSubSectionHTML(t.pubSubLabel, t.publications) + pubSubSectionHTML(t.memoireSubLabel, t.memoires),
     projets: groupProjectsByYear(t.projets, t),
   };
   document.getElementById('main').innerHTML = t.tabs.map(id => `
@@ -612,6 +674,7 @@ function render() {
   document.documentElement.lang = curLang;
   document.getElementById('subtitle').textContent = t.subtitle;
   document.getElementById('seeking').textContent  = t.seeking;
+  document.getElementById('seekingPhd').textContent = t.seekingPhd;
   renderTabs(t);
   renderMain(t);
   renderInfo(t);
